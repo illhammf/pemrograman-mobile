@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BarangBelanja {
-  final String nama;
+class BarangBelanja { // Class untuk merepresentasikan barang belanja
+  final String nama; // final karena nama barang tidak akan berubah setelah dibuat
   final int jumlah;
   final String kategori;
   bool sudahDibeli;
 
-  BarangBelanja({
+  BarangBelanja({ // Konstruktor untuk membuat instance BarangBelanja
     required this.nama,
     required this.jumlah,
     required this.kategori,
@@ -15,7 +15,7 @@ class BarangBelanja {
   });
 }
 
-class BelanjaModel extends ChangeNotifier {
+class BelanjaModel extends ChangeNotifier { // Class untuk mengelola daftar belanja, menggunakan ChangeNotifier agar bisa digunakan dengan Provider
   final List<BarangBelanja> _items = [];
 
   List<BarangBelanja> get items {
@@ -26,7 +26,7 @@ class BelanjaModel extends ChangeNotifier {
     return _items.where((barang) => !barang.sudahDibeli).length;
   }
 
-  void tambah({
+  void tambah({ // Method untuk menambahkan barang belanja baru ke daftar
     required String nama,
     required int jumlah,
     required String kategori,
@@ -42,19 +42,19 @@ class BelanjaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggle(int index) {
+  void toggle(int index) { // Method untuk mengubah status sudahDibeli dari barang belanja di index tertentu
     _items[index].sudahDibeli = !_items[index].sudahDibeli;
     notifyListeners();
   }
 
-  void hapus(int index) {
+  void hapus(int index) { // Method untuk menghapus barang belanja di index tertentu
     _items.removeAt(index);
     notifyListeners();
   }
 }
 
 void main() {
-  runApp(
+  runApp( // Fungsi utama untuk menjalankan aplikasi Flutter
     ChangeNotifierProvider(
       create: (_) => BelanjaModel(),
       child: const MyApp(),
@@ -86,7 +86,7 @@ class DaftarBelanjaPage extends StatelessWidget {
     final model = context.watch<BelanjaModel>();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( // AppBar untuk menampilkan judul halaman dan jumlah barang yang belum dibeli
         title: Text(
           'Daftar Belanja (${model.jumlahBelumDibeli})',
         ),
@@ -112,10 +112,10 @@ class DaftarBelanjaPage extends StatelessWidget {
                     vertical: 6,
                   ),
                   child: ListTile(
-                    leading: Checkbox(
-                      value: barang.sudahDibeli,
+                    leading: Checkbox( // Checkbox untuk menandai apakah barang sudah dibeli atau belum
+                      value: barang.sudahDibeli, // saat checkbox dicentang, artinya barang sudah dibeli
                       onChanged: (_) {
-                        context.read<BelanjaModel>().toggle(index);
+                        context.read<BelanjaModel>().toggle(index); // Artinya kita memanggil method toggle di BelanjaModel untuk mengubah status sudahDibeli dari barang tersebut
                       },
                     ),
                     title: Text(
@@ -133,7 +133,7 @@ class DaftarBelanjaPage extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        context.read<BelanjaModel>().hapus(index);
+                        context.read<BelanjaModel>().hapus(index); // Artinya kita memanggil method hapus di BelanjaModel untuk menghapus barang tersebut dari daftar belanja
                       },
                     ),
                   ),
@@ -229,7 +229,7 @@ class _FormBelanjaPageState extends State<FormBelanjaPage> {
               validator: (value) {
                 final nama = value?.trim() ?? '';
 
-                if (nama.isEmpty) {
+                if (nama.isEmpty) { // Jika nama barang kosong, maka akan menampilkan pesan error
                   return 'Nama barang wajib diisi';
                 }
 
@@ -252,7 +252,7 @@ class _FormBelanjaPageState extends State<FormBelanjaPage> {
                   return 'Jumlah wajib diisi';
                 }
 
-                final angka = int.tryParse(jumlah);
+                final angka = int.tryParse(jumlah); // Mengubah string menjadi integer, jika gagal maka akan menghasilkan null
 
                 if (angka == null) {
                   return 'Jumlah harus berupa angka';
@@ -286,7 +286,7 @@ class _FormBelanjaPageState extends State<FormBelanjaPage> {
                 });
               },
               validator: (value) {
-                if (value == null || value.isEmpty) {
+                if (value == null || value.isEmpty) { // Jika kategori belum dipilih, maka akan menampilkan pesan error
                   return 'Pilih kategori';
                 }
 
