@@ -548,11 +548,13 @@ Halaman menampilkan:
 
 ## 18.7 Daftar Belanja yang diceklis
 
-Screenshot menunjukkan status barang ketika diceklis, stoknya berkurang
+Screenshot menunjukkan status barang ketika diceklis, dan jumlah daftar belanja berkurang.
+
+***Note***: Jumlah pada halaman ini diinputkan 2, berbeda dengan jumlah pada poin 18.6 yang jumlahnya 1
 
 Halaman menampilkan:
 
-- Nama barang tercoret ketika stok habis.
+- Nama barang tercoret.
 - Jumlah.
 - Kategori.
 - Checkbox.
