@@ -8,7 +8,7 @@ Project ini dibuat sebagai dokumentasi proses pembelajaran selama mengikuti mata
 
 ---
 
-## 👨‍💻 Identitas
+## Identitas
 
 | Keterangan | Data |
 |---|---|
@@ -21,7 +21,7 @@ Project ini dibuat sebagai dokumentasi proses pembelajaran selama mengikuti mata
 
 ---
 
-# 📚 Daftar Pertemuan
+# Daftar Pertemuan
 
 Repository ini disusun berdasarkan pertemuan pada mata kuliah Pemrograman Mobile.
 
