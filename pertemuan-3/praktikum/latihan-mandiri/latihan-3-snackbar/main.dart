@@ -124,13 +124,21 @@ class TugasPage extends StatelessWidget {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final berhasil = await Navigator.push<bool>(
             context,
             MaterialPageRoute(
               builder: (_) => const TambahPage(),
             ),
           );
+
+          if (berhasil == true && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Tugas ditambahkan'),
+              ),
+            );
+          }
         },
         child: const Icon(Icons.add),
       ),
