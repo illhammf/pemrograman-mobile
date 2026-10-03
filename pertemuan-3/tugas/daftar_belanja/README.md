@@ -546,6 +546,23 @@ Halaman menampilkan:
 
 ---
 
+## 18.7 Daftar Belanja yang diceklis
+
+Screenshot menunjukkan status barang ketika diceklis, stoknya berkurang
+
+Halaman menampilkan:
+
+- Nama barang tercoret ketika stok habis.
+- Jumlah.
+- Kategori.
+- Checkbox.
+- Tombol hapus.
+- Jumlah barang berkurang pada AppBar.
+
+![Ceklis Barang](images/7_ceklisbarang.png)
+
+---
+
 # 19. Cara Menjalankan Project
 
 Pastikan berada pada folder project:
@@ -678,6 +695,7 @@ lib/main.dart
 - [x] Screenshot validasi jumlah bukan angka.
 - [x] Screenshot validasi kategori.
 - [x] Screenshot daftar belanja.
+- [x] Screenshot ceklis barang.
 
 ---
 
