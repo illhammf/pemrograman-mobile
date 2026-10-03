@@ -26,12 +26,14 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> {
   int _count = 0;
 
+  // Fungsi untuk menambahkan nilai counter
   void _increment() {
     setState(() {
       _count++;
     });
   }
 
+  // Fungsi untuk mengurangi nilai counter, tetapi tidak boleh negatif
   void _decrement() {
     if (_count > 0) {
       setState(() {
@@ -40,6 +42,7 @@ class _CounterPageState extends State<CounterPage> {
     }
   }
 
+  // Fungsi untuk mereset nilai counter ke 0
   void _reset() {
     setState(() {
       _count = 0;
