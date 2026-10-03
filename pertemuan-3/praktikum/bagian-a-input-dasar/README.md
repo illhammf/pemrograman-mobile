@@ -23,3 +23,10 @@ Tombol Sapa
 setState()
    ↓
 Sapaan ditampilkan
+```
+
+## Checkpoint
+
+Mengetik nama lalu menekan tombol Sapa menampilkan sapaan di bawah input.
+
+Controller juga dilepas menggunakan dispose().
