@@ -483,7 +483,7 @@ Screenshot menunjukkan kondisi ketika belum terdapat barang pada daftar.
 
 Screenshot menunjukkan kondisi ketika form belum diisi dan validasi dilakukan.
 
-![Semua Input Kosong](images/2_semuаkosong.png)
+![Semua Input Kosong](images/2_semuakosong.png)
 
 ---
 
