@@ -66,7 +66,7 @@ class TugasPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<TugasModel>();
+    final model = context.watch<TugasModel>(); // Untuk mendapatkan data dari TugasModel, artinya halaman ini akan rebuild setiap kali data di TugasModel berubah
 
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +87,7 @@ class TugasPage extends StatelessWidget {
                   leading: Checkbox(
                     value: tugas.selesai,
                     onChanged: (_) {
-                      context.read<TugasModel>().toggle(index);
+                      context.read<TugasModel>().toggle(index); // Artinya kita memanggil method toggle di TugasModel untuk mengubah status selesai dari tugas tersebut
                     },
                   ),
                   title: Text(
