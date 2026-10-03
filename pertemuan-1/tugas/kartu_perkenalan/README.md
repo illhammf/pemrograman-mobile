@@ -1,17 +1,47 @@
-# kartu_perkenalan
+# Tugas Pertemuan 1 — Kartu Perkenalan
 
-A new Flutter project.
+## Deskripsi
 
-## Getting Started
+Membuat aplikasi Flutter satu halaman dengan judul **Kartu Perkenalan**.
 
-This project is a starting point for a Flutter application.
+Aplikasi menampilkan informasi identitas mahasiswa menggunakan widget Flutter dasar.
 
-A few resources to get you started if this is your first Flutter project:
+## Informasi yang Ditampilkan
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Foto atau ikon
+- Nama
+- NIM
+- Jurusan
+- Hobi
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Widget yang Digunakan
+
+- `Column`
+- `Text`
+- `Icon`
+- `SizedBox`
+
+## Struktur Tugas
+
+```text
+tugas/
+├── README.md
+└── kartu-perkenalan/
+    └── main.dart
+```
+
+## Identitas
+
+**Nama:** Ilham Firmansyah  
+**NIM:** 20240801102  
+**Jurusan:** Teknik Informatika  
+**Hobi:** Membaca Buku dan Merawat Burung Kicau
+
+## Hasil
+
+![Hasil](images/image.png)
+
+## Pengumpulan
+
+- Tangkapan layar aplikasi yang sedang berjalan.
+- Tautan repository GitHub atau berkas `main.dart`.
