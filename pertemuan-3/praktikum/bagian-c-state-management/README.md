@@ -55,7 +55,7 @@ Tidak perlu `main.dart` khusus untuk Bagian C karena modulnya memang berupa **pe
 
 ---
 
-# 5. Bagian D — Daftar Tugas dengan Provider
+# Bagian D — Daftar Tugas dengan Provider
 
 Nah ini bagian paling besar.
 
@@ -77,3 +77,17 @@ TambahPage
 ```
 
 Dengan fitur tambah, centang, hapus, serta jumlah tugas selesai pada AppBar.
+
+# Pertama, install Provider
+
+Di project Flutter utama:
+
+```text
+cd ~/perkuliahan/pemrograman_mobile/pemrograman-mobile/pertemuan-3/praktikum
+flutter pub add provider
+```
+
+Kemudian:
+```text
+flutter pub get
+```
