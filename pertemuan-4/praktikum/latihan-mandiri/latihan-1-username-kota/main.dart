@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
 class Pengguna {
   final int id;
   final String name;
-  final String username;
+  final String username; // Tambahan
   final String email;
   final String phone;
   final String website;
-  final String city;
+  final String city; // Tambahan
 
   const Pengguna({
     required this.id,
