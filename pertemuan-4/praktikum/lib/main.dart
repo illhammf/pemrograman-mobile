@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Praktikum 4 - Error Handling',
+      title: 'Latihan 1',
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
@@ -26,37 +26,39 @@ class MyApp extends StatelessWidget {
 class Pengguna {
   final int id;
   final String name;
+  final String username;
   final String email;
   final String phone;
   final String website;
+  final String city;
 
   const Pengguna({
     required this.id,
     required this.name,
+    required this.username,
     required this.email,
     required this.phone,
     required this.website,
+    required this.city,
   });
 
   factory Pengguna.fromJson(Map<String, dynamic> json) {
     return Pengguna(
       id: json['id'] as int,
       name: json['name'] as String,
+      username: json['username'] as String,
       email: json['email'] as String,
       phone: json['phone'] as String,
       website: json['website'] as String,
+      city: json['address']['city'] as String,
     );
   }
 }
 
-// URL normal.
-// Untuk menguji error 404, ubah sementara:
-// /users -> /userz
-const String endpoint =
-    'https://jsonplaceholder.typicode.com/users';
-
 Future<List<Pengguna>> ambilPengguna() async {
-  final uri = Uri.parse(endpoint);
+  final uri = Uri.parse(
+    'https://jsonplaceholder.typicode.com/users',
+  );
 
   final response = await http
       .get(uri)
@@ -110,21 +112,18 @@ class _PenggunaPageState extends State<PenggunaPage> {
           IconButton(
             onPressed: _muatUlang,
             icon: const Icon(Icons.refresh),
-            tooltip: 'Muat ulang',
           ),
         ],
       ),
       body: FutureBuilder<List<Pengguna>>(
         future: _future,
         builder: (context, snapshot) {
-          // Kondisi loading
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          // Kondisi error
           if (snapshot.hasError) {
             return Center(
               child: Padding(
@@ -134,26 +133,17 @@ class _PenggunaPageState extends State<PenggunaPage> {
                   children: [
                     const Icon(
                       Icons.error_outline,
-                      size: 60,
+                      size: 50,
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Terjadi kesalahan',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Text(
                       '${snapshot.error}',
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 20),
-                    ElevatedButton.icon(
+                    const SizedBox(height: 12),
+                    ElevatedButton(
                       onPressed: _muatUlang,
-                      icon: const Icon(Icons.refresh),
-                      label: const Text('Coba lagi'),
+                      child: const Text('Coba lagi'),
                     ),
                   ],
                 ),
@@ -161,7 +151,6 @@ class _PenggunaPageState extends State<PenggunaPage> {
             );
           }
 
-          // Kondisi data berhasil
           final data = snapshot.data ?? [];
 
           if (data.isEmpty) {
@@ -185,12 +174,72 @@ class _PenggunaPageState extends State<PenggunaPage> {
                   pengguna.name,
                 ),
                 subtitle: Text(
-                  pengguna.email,
+                  '@${pengguna.username}',
                 ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => DetailPenggunaPage(
+                        pengguna: pengguna,
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class DetailPenggunaPage extends StatelessWidget {
+  final Pengguna pengguna;
+
+  const DetailPenggunaPage({
+    super.key,
+    required this.pengguna,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pengguna.name),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Username'),
+            subtitle: Text(pengguna.username),
+          ),
+          ListTile(
+            leading: const Icon(Icons.location_city),
+            title: const Text('Kota'),
+            subtitle: Text(pengguna.city),
+          ),
+          ListTile(
+            leading: const Icon(Icons.email),
+            title: const Text('Email'),
+            subtitle: Text(pengguna.email),
+          ),
+          ListTile(
+            leading: const Icon(Icons.phone),
+            title: const Text('Telepon'),
+            subtitle: Text(pengguna.phone),
+          ),
+          ListTile(
+            leading: const Icon(Icons.language),
+            title: const Text('Website'),
+            subtitle: Text(pengguna.website),
+          ),
+        ],
       ),
     );
   }
