@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Latihan 1',
+      title: 'Latihan 2',
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
@@ -26,31 +26,19 @@ class MyApp extends StatelessWidget {
 class Pengguna {
   final int id;
   final String name;
-  final String username; // Tambahan
   final String email;
-  final String phone;
-  final String website;
-  final String city; // Tambahan
 
   const Pengguna({
     required this.id,
     required this.name,
-    required this.username,
     required this.email,
-    required this.phone,
-    required this.website,
-    required this.city,
   });
 
   factory Pengguna.fromJson(Map<String, dynamic> json) {
     return Pengguna(
       id: json['id'] as int,
       name: json['name'] as String,
-      username: json['username'] as String,
       email: json['email'] as String,
-      phone: json['phone'] as String,
-      website: json['website'] as String,
-      city: json['address']['city'] as String,
     );
   }
 }
@@ -97,10 +85,12 @@ class _PenggunaPageState extends State<PenggunaPage> {
     _future = ambilPengguna();
   }
 
-  void _muatUlang() {
+  Future<void> _refreshData() async {
     setState(() {
       _future = ambilPengguna();
     });
+
+    await _future;
   }
 
   @override
@@ -108,17 +98,12 @@ class _PenggunaPageState extends State<PenggunaPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Pengguna'),
-        actions: [
-          IconButton(
-            onPressed: _muatUlang,
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
       ),
       body: FutureBuilder<List<Pengguna>>(
         future: _future,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState ==
+              ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -142,7 +127,11 @@ class _PenggunaPageState extends State<PenggunaPage> {
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: _muatUlang,
+                      onPressed: () {
+                        setState(() {
+                          _future = ambilPengguna();
+                        });
+                      },
                       child: const Text('Coba lagi'),
                     ),
                   ],
@@ -153,93 +142,27 @@ class _PenggunaPageState extends State<PenggunaPage> {
 
           final data = snapshot.data ?? [];
 
-          if (data.isEmpty) {
-            return const Center(
-              child: Text('Tidak ada data'),
-            );
-          }
+          return RefreshIndicator(
+            onRefresh: _refreshData,
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                final pengguna = data[index];
 
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final pengguna = data[index];
-
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text(
-                    pengguna.name[0],
-                  ),
-                ),
-                title: Text(
-                  pengguna.name,
-                ),
-                subtitle: Text(
-                  '@${pengguna.username}',
-                ),
-                trailing: const Icon(
-                  Icons.chevron_right,
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => DetailPenggunaPage(
-                        pengguna: pengguna,
-                      ),
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Text(
+                      pengguna.name[0],
                     ),
-                  );
-                },
-              );
-            },
+                  ),
+                  title: Text(pengguna.name),
+                  subtitle: Text(pengguna.email),
+                );
+              },
+            ),
           );
         },
-      ),
-    );
-  }
-}
-
-class DetailPenggunaPage extends StatelessWidget {
-  final Pengguna pengguna;
-
-  const DetailPenggunaPage({
-    super.key,
-    required this.pengguna,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(pengguna.name),
-      ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Username'),
-            subtitle: Text(pengguna.username),
-          ),
-          ListTile(
-            leading: const Icon(Icons.location_city),
-            title: const Text('Kota'),
-            subtitle: Text(pengguna.city),
-          ),
-          ListTile(
-            leading: const Icon(Icons.email),
-            title: const Text('Email'),
-            subtitle: Text(pengguna.email),
-          ),
-          ListTile(
-            leading: const Icon(Icons.phone),
-            title: const Text('Telepon'),
-            subtitle: Text(pengguna.phone),
-          ),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: const Text('Website'),
-            subtitle: Text(pengguna.website),
-          ),
-        ],
       ),
     );
   }
