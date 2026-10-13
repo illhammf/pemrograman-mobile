@@ -40,12 +40,12 @@ praktikum/
     ├── main.dart
     ├── README.md
     └── screenshots/
-        ├── 01-daftar-catatan.png
-        ├── 02-konfirmasi-hapus.png
-        ├── 03-hasil-pencarian.png
-        ├── 04-tanggal-dibuat.png
-        ├── 05-pilihan-urutan.png
-        └── 06-data-setelah-restart.png
+        ├── 01_catatankosong.png
+        ├── 02_tambahcatatan.png
+        ├── 03_catatanmasuk.png
+        ├── 04_mencaricatatan.png
+        ├── 05_urutkancatatan.png
+        └── 06_hapuscatatan.png
 ```
 
 ## Pengujian
