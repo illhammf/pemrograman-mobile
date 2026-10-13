@@ -58,6 +58,25 @@ praktikum/
 - Pilih urutan Terlama, tutup aplikasi, lalu buka kembali dan pastikan pilihan urutan tersimpan.
 - Tutup aplikasi sepenuhnya, buka lagi, lalu pastikan catatan masih tersedia.
 
+## Screenshot
+### Catatan Kosong
+![Catatan Kosong](screenshots/01_catatankosong.png)
+
+### Tambah Catatan
+![Tambah Catatan](screenshots/02_tambahcatatan.png)
+
+### Catatan Masuk
+![Catatan Masuk](screenshots/03_catatanmasuk.png)
+
+### Mencari Catatan
+![Mencari Catatan](screenshots/04_mencaricatatan.png)
+
+### Urutkan Catatan
+![Urutkan Catatan](screenshots/05_urutkancatatan.png)
+
+### Hapus Catatan
+![Hapus Catatan](screenshots/06_hapuscatatan.png)
+
 ## Catatan Migrasi Database
 
 Database baru dibuat dengan skema versi 2. Jika database versi 1 sudah ada, `onUpgrade` menambahkan kolom `dibuat` dan mengisi nilai tanggal untuk catatan lama. Jika struktur database diubah tanpa menaikkan versi, migrasi yang diperlukan tidak akan berjalan otomatis.
