@@ -106,4 +106,5 @@ Simpan bukti tampilan aplikasi di folder `galeri_katalog/screenshots/`.
 
 ## Kesimpulan
 
-Melalui tugas ini, mahasiswa diharapkan mampu menggabungkan navigasi, animasi, pengaturan tema, dan penyimpanan preferensi ke dalam sebuah aplikasi Flutter. Aplikasi Galeri Katalog Interaktif menjadi penerapan materi Pertemuan 6 dalam bentuk proyek yang dapat dijalankan dan diuji secara langsung.
+Melalui tugas ini, mahasiswa diharapkan mampu menggabungkan navigasi, animasi, pengaturan tema, dan penyimpanan preferensi ke dalam sebuah aplikasi Flutter. <br> 
+Aplikasi Galeri Katalog Interaktif menjadi penerapan materi Pertemuan 6 dalam bentuk proyek yang dapat dijalankan dan diuji secara langsung.
