@@ -199,15 +199,13 @@ class _GaleriAppState extends State<GaleriApp> {
       theme: buatTema(_warna, Brightness.light),
       darkTheme: buatTema(_warna, Brightness.dark),
       themeMode: _mode,
-      initialRoute: '/',
-      routes: {
-        '/': (_) => GaleriShell(
-              mode: _mode,
-              warna: _warna,
-              onModeChanged: _ubahMode,
-              onWarnaChanged: _ubahWarna,
-            ),
-      },
+      // Untuk mengatur route dinamis, kita bisa menggunakan onGenerateRoute.
+      home: GaleriShell(
+        mode: _mode,
+        warna: _warna,
+        onModeChanged: _ubahMode,
+        onWarnaChanged: _ubahWarna,
+      ),
       onGenerateRoute: (settings) {
         if (settings.name == '/detail') {
           final data = settings.arguments;
@@ -215,22 +213,25 @@ class _GaleriAppState extends State<GaleriApp> {
           if (data is Destinasi) {
             return MaterialPageRoute<void>(
               settings: settings,
-              builder: (_) => DetailDestinasi(destinasi: data),
+              builder: (context) {
+                return DetailDestinasi(destinasi: data);
+              },
             );
           }
 
           return MaterialPageRoute<void>(
-            builder: (_) => const Halaman404(),
+            settings: settings,
+            builder: (context) => const Halaman404(),
           );
         }
 
-        return null;
-      },
-      onUnknownRoute: (_) {
+        // Pastikan route yang tidak dikenal selalu punya halaman.
         return MaterialPageRoute<void>(
-          builder: (_) => const Halaman404(),
+          settings: settings,
+          builder: (context) => const Halaman404(),
         );
       },
+
     );
   }
 }
