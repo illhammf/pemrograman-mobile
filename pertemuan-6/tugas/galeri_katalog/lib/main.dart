@@ -451,7 +451,10 @@ class KategoriTab extends StatelessWidget {
                 for (final item in daftarDestinasi.where(
                   (item) => item.kategori == namaKategori,
                 ))
-                  KartuDestinasi(destinasi: item),
+                  KartuDestinasi(
+                    destinasi: item,
+                    gunakanHero: false,
+                  )
               ],
             ),
           ),
