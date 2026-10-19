@@ -89,12 +89,13 @@ flutter run
 
 Simpan bukti tampilan aplikasi di folder `galeri_katalog/screenshots/`.
 
-1. `01-beranda-tema-terang.png`
-2. `02-beranda-tema-gelap.png`
-3. `03-halaman-detail-hero.png`
-4. `04-halaman-kategori.png`
-5. `05-pengaturan-warna.png`
-6. `06-tema-setelah-restart.png`
+1. `01_beranda-tema-terang.png`
+2. `02_beranda-tema-gelap.png`
+3. `03_halaman-detail-hero.png`
+4. `04_halaman-kategori.png`
+5. `05_halaman-detail-kategori.png`
+6. `06_pengaturan-warna.png`
+7. `07_tema-setelah-restart.png`
 
 ## Identitas
 
