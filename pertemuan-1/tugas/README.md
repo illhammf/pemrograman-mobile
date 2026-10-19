@@ -161,12 +161,12 @@ Simpan screenshot aplikasi pada folder `screenshots/` di dalam proyek `kartu_per
 
 Contoh nama berkas:
 
-`screenshots/01-kartu-perkenalan.png`
+`screenshots/01_kartu-perkenalan.png`
 
 Apabila berkas tersebut sudah tersedia, tampilkan gambar dengan sintaks Markdown berikut:
 
 ```markdown
-![Tampilan Kartu Perkenalan](kartu_perkenalan/screenshots/01-kartu-perkenalan.png)
+![Tampilan Kartu Perkenalan](kartu_perkenalan/screenshots/01_kartu-perkenalan.png)
 ```
 
 **Catatan:** sintaks di atas digunakan jika gambar dirujuk dari file `pertemuan-1/tugas/README.md` dan nama serta lokasi berkasnya sesuai. Jika screenshot belum tersedia, ambil gambar dari aplikasi yang sedang berjalan terlebih dahulu.
