@@ -482,18 +482,29 @@ class KartuDestinasi extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         contentPadding: const EdgeInsets.all(12),
-        leading: Hero(
-          tag: 'destinasi-${destinasi.nama}',
-          child: CircleAvatar(
-            radius: 28,
-            backgroundColor: destinasi.warna,
-            child: Icon(
-              destinasi.ikon,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-        ),
+        leading: gunakanHero
+            ? Hero(
+                tag: 'destinasi-${destinasi.nama}',
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundColor: destinasi.warna,
+                  child: Icon(
+                    destinasi.ikon,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              )
+            : CircleAvatar(
+                radius: 28,
+                backgroundColor: destinasi.warna,
+                child: Icon(
+                  destinasi.ikon,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+
         title: Text(
           destinasi.nama,
           style: tema.textTheme.titleMedium,
