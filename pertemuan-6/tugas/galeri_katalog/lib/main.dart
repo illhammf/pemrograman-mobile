@@ -462,10 +462,12 @@ class KategoriTab extends StatelessWidget {
 
 class KartuDestinasi extends StatelessWidget {
   final Destinasi destinasi;
+  final bool gunakanHero;
 
   const KartuDestinasi({
     super.key,
     required this.destinasi,
+    this.gunakanHero = true,
   });
 
   @override
