@@ -1,69 +1,69 @@
-# 🌏 Galeri Katalog Interaktif — Flutter
+# Tugas Pertemuan 6 — Galeri Katalog Interaktif
 
-## 📌 Deskripsi Proyek
+## 1. Deskripsi Proyek
 
-**Galeri Katalog Interaktif** adalah aplikasi mobile berbasis Flutter yang menampilkan katalog destinasi wisata dengan tampilan yang interaktif. Aplikasi ini dibuat untuk menerapkan materi Pertemuan 6 mata kuliah Pemrograman Mobile, khususnya pengelolaan tema, navigasi halaman, pengiriman argumen, dan animasi.
+Galeri Katalog Interaktif adalah aplikasi mobile berbasis Flutter yang digunakan untuk menampilkan informasi berbagai destinasi wisata. Aplikasi ini dibuat untuk menerapkan materi Pertemuan 6 mata kuliah Pemrograman Mobile, khususnya pengelolaan tema aplikasi, navigasi ant halaman, pengiriman argumen, animasi, dan penyimpanan preferensi pengguna.
 
-Pengguna dapat menjelajahi daftar destinasi, melihat informasi berdasarkan kategori, membuka halaman detail, serta menyesuaikan warna dan mode tampilan aplikasi.
+Aplikasi menyediakan tiga halaman utama, yaitu Beranda, Kategori, dan Pengaturan. Pada halaman Beranda, pengguna dapat melihat daftar destinasi wisata yang tersedia. Halaman Kategori digunakan untuk mengelompokkan destinasi berdasarkan jenisnya, sedangkan halaman Pengaturan digunakan untuk mengubah mode tampilan dan warna tema aplikasi.
 
-Aplikasi ini juga menggunakan **SharedPreferences** untuk menyimpan pilihan tema sehingga pengaturan tetap tersimpan ketika aplikasi ditutup dan dibuka kembali.
+Aplikasi ini juga menerapkan navigasi menuju halaman detail destinasi menggunakan named routes. Informasi destinasi dikirim melalui argumen navigasi agar halaman detail dapat menampilkan data sesuai dengan pilihan pengguna.
 
-## 🎯 Tujuan Pembelajaran
+Untuk mendukung pengalaman pengguna, aplikasi menggunakan animasi Hero pada perpindahan dari kartu destinasi ke halaman detail serta animasi implisit menggunakan widget `AnimatedContainer`. Preferensi tema disimpan secara lokal menggunakan SharedPreferences sehingga pilihan pengguna tetap tersedia setelah aplikasi dibuka kembali.
 
-1. Memahami penggunaan `ThemeData`, `ThemeMode`, dan `colorSchemeSeed`.
-2. Menerapkan navigasi menggunakan `NavigationBar` dan `IndexedStack`.
-3. Memahami named routes dan pengiriman argumen menggunakan `Navigator.pushNamed()`.
-4. Menerapkan animasi perpindahan halaman menggunakan `Hero`.
-5. Memahami penerapan animasi implisit menggunakan `AnimatedContainer`.
-6. Mengelola preferensi pengguna menggunakan SharedPreferences.
-7. Membuat aplikasi dengan tampilan yang menyesuaikan tema terang dan gelap.
+## 2. Tujuan
 
-## ✨ Fitur Aplikasi
+Tujuan pembuatan aplikasi Galeri Katalog Interaktif adalah:
 
-### 1. Beranda
+1. Memahami penggunaan `ThemeData`, `ThemeMode`, dan `colorSchemeSeed` untuk mengatur tampilan aplikasi.
+2. Mengimplementasikan navigasi ant halaman menggunakan `NavigationBar` dan `IndexedStack`.
+3. Memahami penggunaan named routes untuk berpindah halaman.
+4. Mengirimkan data antarhalaman menggunakan argumen pada `Navigator.pushNamed()`.
+5. Menerapkan animasi perpindahan elemen menggunakan widget `Hero`.
+6. Memahami penggunaan animasi implisit menggunakan `AnimatedContainer`.
+7. Mengimplementasikan penyimpanan preferensi pengguna menggunakan SharedPreferences.
+8. Menyediakan pilihan mode terang dan gelap.
+9. Menyediakan beberapa pilihan warna tema yang dapat diubah pengguna.
+10. Menangani navigasi menuju halaman yang tidak ditemukan menggunakan halaman 404.
+11. Memahami proses pengujian dan perbaikan error selama pengembangan aplikasi Flutter.
 
-Menampilkan pengenalan aplikasi, kartu informasi, dan daftar destinasi wisata yang dapat dipilih pengguna.
+## 3. Fitur Aplikasi
 
-### 2. Kategori
+Fitur yang dikembangkan dalam aplikasi Galeri Katalog Interaktif meliputi:
 
-Mengelompokkan destinasi berdasarkan kategori, seperti:
-- Alam
-- Edukasi
-- Keluarga
+- **Halaman Beranda:** menampilkan pengenalan aplikasi, informasi singkat, dan daftar destinasi wisata.
+- **Halaman Kategori:** mengelompokkan destinasi berdasarkan kategori, seperti Alam, Edukasi, dan Keluarga.
+- **Halaman Detail:** menampilkan nama destinasi, ikon, kategori, jenis lokasi, dan deskripsi sesuai destinasi yang dipilih.
+- **Navigasi Tab:** menyediakan tiga menu utama, yaitu Beranda, Kategori, dan Pengaturan.
+- **Drawer Navigation:** menyediakan menu alternatif untuk berpindah ke halaman utama aplikasi.
+- **Animasi Hero:** memberikan efek transisi pada elemen destinasi ketika pengguna membuka halaman detail dari Beranda.
+- **Animasi Implisit:** menggunakan `AnimatedContainer` untuk mendukung perubahan tampilan secara bertahap.
+- **Pengaturan Tema:** memungkinkan pengguna mengaktifkan mode terang atau gelap.
+- **Pilihan Warna Tema:** menyediakan empat pilihan warna, yaitu indigo, teal, deep orange, dan pink.
+- **Penyimpanan Preferensi:** menggunakan SharedPreferences untuk menyimpan pilihan mode dan warna tema.
+- **Halaman 404:** menampilkan halaman alternatif ketika aplikasi menerima navigasi menuju route yang tidak dikenal.
 
-Pengguna dapat membuka kategori untuk melihat destinasi yang tersedia.
+## 4. Teknologi yang Digunakan
 
-### 3. Halaman Detail
+Teknologi dan komponen yang digunakan dalam pengembangan aplikasi adalah:
 
-Menampilkan informasi destinasi yang dipilih, termasuk nama, kategori, jenis lokasi, deskripsi, dan ikon destinasi.
-
-Halaman detail dibuka menggunakan named route `/detail`, dengan objek `Destinasi` dikirim melalui argumen navigasi.
-
-### 4. Pengaturan Tema
-
-Pengguna dapat:
-- Mengaktifkan mode terang.
-- Mengaktifkan mode gelap.
-- Memilih warna tema indigo, teal, deep orange, atau pink.
-- Menyimpan pilihan tema secara lokal menggunakan SharedPreferences.
-
-### 5. Navigasi dan Animasi
-
-Aplikasi menerapkan `NavigationBar`, `IndexedStack`, `Hero`, dan `AnimatedContainer` untuk mendukung navigasi dan tampilan yang interaktif.
-
-## 🛠️ Teknologi yang Digunakan
-
-| Teknologi | Kegunaan |
+| Teknologi atau Komponen | Kegunaan |
 |---|---|
-| Flutter | Framework pengembangan aplikasi |
-| Dart | Bahasa pemrograman |
-| Material Design 3 | Komponen dan desain antarmuka |
-| SharedPreferences | Penyimpanan preferensi tema |
-| Navigator | Navigasi antarhalaman |
-| Hero | Animasi transisi antarhalaman |
-| AnimatedContainer | Animasi perubahan properti tampilan |
+| Flutter | Framework untuk membangun aplikasi mobile |
+| Dart | Bahasa pemrograman yang digunakan dalam proyek |
+| Material Design 3 | Menyediakan komponen antarmuka aplikasi |
+| `ThemeData` | Mengatur konfigurasi tema aplikasi |
+| `ThemeMode` | Menentukan penggunaan tema terang atau gelap |
+| `NavigationBar` | Menyediakan navigasi utama berbentuk tab |
+| `IndexedStack` | Mempertahankan halaman tab saat pengguna berpindah menu |
+| `Navigator` | Mengelola navigasi ant halaman |
+| Named routes | Menentukan tujuan navigasi berdasarkan nama route |
+| `Hero` | Membuat animasi transisi elemen antarhalaman |
+| `AnimatedContainer` | Membuat animasi perubahan properti tampilan |
+| SharedPreferences | Menyimpan preferensi tema secara lokal |
 
-## 📂 Struktur Folder
+## 5. Struktur Project
+
+Struktur folder proyek Galeri Katalog Interaktif adalah sebagai berikut:
 
 ```text
 galeri_katalog/
@@ -86,91 +86,108 @@ galeri_katalog/
 └── README.md
 ```
 
-## 🚀 Cara Menjalankan Aplikasi
+Keterangan struktur folder:
 
-### 1. Masuk ke direktori proyek
+1. `lib/main.dart` berisi kode utama aplikasi, model destinasi, konfigurasi tema, navigasi, halaman detail, dan halaman pengaturan.
+2. `screenshots/` menyimpan dokumentasi hasil tampilan aplikasi.
+3. `test/widget_test.dart` berisi pengujian otomatis yang tersedia pada proyek.
+4. `pubspec.yaml` berisi konfigurasi proyek dan dependensi yang digunakan.
+5. `pubspec.lock` menyimpan versi dependensi yang telah diselesaikan oleh Flutter.
 
-Jalankan perintah berikut dari terminal:
+## 6. Cara Menjalankan Aplikasi
+
+### 6.1. Masuk ke Direktori Proyek
+
+Buka terminal VS Code dan masuk ke folder proyek Galeri Katalog Interaktif.
 
 ```bash
 cd ~/perkuliahan/pemrograman_mobile/pemrograman-mobile/pertemuan-6/tugas/galeri_katalog
 ```
 
-### 2. Unduh dependensi
+### 6.2. Mengunduh Dependensi
+
+Jalankan perintah berikut untuk memastikan seluruh dependensi yang dibutuhkan telah tersedia.
 
 ```bash
 flutter pub get
 ```
 
-### 3. Periksa konfigurasi Flutter
+Pastikan dependensi `shared_preferences` tercantum pada `pubspec.yaml`, karena aplikasi menggunakannya untuk menyimpan pengaturan tema.
+
+### 6.3. Memeriksa Konfigurasi Flutter
+
+Untuk memeriksa kesiapan lingkungan pengembangan, jalankan:
 
 ```bash
 flutter doctor
 ```
 
-Pastikan perangkat yang akan digunakan untuk menjalankan aplikasi sudah terdeteksi oleh Flutter.
+Pastikan perangkat Android terhubung dan terdeteksi oleh Flutter.
 
-### 4. Jalankan aplikasi
+### 6.4. Menjalankan Aplikasi
+
+Jalankan aplikasi menggunakan perintah:
 
 ```bash
 flutter run
 ```
 
-## 📸 Dokumentasi Tampilan Aplikasi
+Flutter akan membangun dan menjalankan aplikasi pada perangkat yang dipilih.
 
-Screenshot berikut merupakan dokumentasi hasil implementasi aplikasi Galeri Katalog Interaktif.
+## 7. Implementasi Program
 
-### 1. Beranda — Tema Terang
+### 7.1. Model Data Destinasi
 
-Menampilkan halaman utama aplikasi dengan tema terang dan daftar destinasi wisata.
+Aplikasi menggunakan class `Destinasi` untuk menyimpan informasi setiap destinasi wisata.
 
-![Beranda tema terang](screenshots/01_beranda-tema-terang.png)
+Data yang disimpan meliputi nama, lokasi, deskripsi, ikon, warna, dan kategori. Data tersebut digunakan untuk menampilkan daftar destinasi dan mengirimkan informasi ke halaman detail.
 
-### 2. Beranda — Tema Gelap
+### 7.2. Pengaturan Tema
 
-Menampilkan halaman utama ketika mode gelap diaktifkan.
+Pengaturan tema dibuat menggunakan `ThemeData` dan `ThemeMode`. Fungsi `buatTema()` digunakan untuk menghasilkan konfigurasi tema berdasarkan warna utama dan tingkat kecerahan.
 
-![Beranda tema gelap](screenshots/02_beranda-tema-gelap.png)
+Pengguna dapat memilih mode terang atau gelap serta mengganti warna tema melalui halaman Pengaturan.
 
-### 3. Halaman Detail dengan Hero
+### 7.3. Navigasi Tab
 
-Menampilkan informasi destinasi yang dipilih serta transisi elemen menggunakan animasi Hero.
+Navigasi utama menggunakan `NavigationBar` dengan tiga pilihan halaman. `IndexedStack` digunakan untuk menampilkan halaman berdasarkan indeks yang dipilih.
 
-![Halaman detail Hero](screenshots/03_halaman-detail-hero.png)
+Pendekatan ini memungkinkan halaman tab tetap dipertahankan ketika pengguna berpindah menu.
 
-### 4. Halaman Kategori
+### 7.4. Named Routes dan Argumen
 
-Menampilkan daftar destinasi berdasarkan kategori wisata.
+Halaman detail dibuka melalui route `/detail`. Objek destinasi dikirim melalui parameter `arguments` pada `Navigator.pushNamed()`.
 
-![Halaman kategori](screenshots/04_halaman-kategori.png)
+Pada `onGenerateRoute`, aplikasi memeriksa apakah argumen yang diterima merupakan objek `Destinasi`. Jika sesuai, halaman detail ditampilkan menggunakan data tersebut. Jika argumen tidak sesuai, aplikasi menampilkan halaman alternatif.
 
-### 5. Detail Destinasi dari Kategori
+### 7.5. Animasi Hero
 
-Dokumentasi tampilan detail destinasi yang dibuka melalui bagian kategori.
+Widget `Hero` digunakan pada ikon destinasi di halaman Beranda dan pada ikon yang sesuai di halaman detail. Keduanya menggunakan tag yang sama agar Flutter dapat melakukan transisi elemen saat navigasi berlangsung.
 
-![Detail destinasi dari kategori](screenshots/05_halaman-detail-kategori.png)
+Pada kartu yang ditampilkan di halaman Kategori, animasi Hero dinonaktifkan untuk menghindari konflik tag ketika terdapat beberapa kartu dengan destinasi yang sama pada widget tree.
 
-### 6. Pengaturan Warna Tema
+### 7.6. Penyimpanan Preferensi
 
-Menampilkan pilihan warna tema dan pengaturan mode terang atau gelap.
+SharedPreferences digunakan untuk menyimpan dua pengaturan utama:
 
-![Pengaturan warna tema](screenshots/06_pengaturan-warna.png)
+- Mode tampilan, yaitu terang atau gelap.
+- Indeks warna tema yang dipilih pengguna.
 
-### 7. Tema Setelah Aplikasi Dibuka Kembali
+Ketika aplikasi dimulai, fungsi `_muatPengaturan()` membaca nilai yang tersimpan. Jika belum ada preferensi, aplikasi menggunakan nilai awal berupa tema terang dan warna indigo.
 
-Menunjukkan bahwa preferensi tema yang disimpan tetap diterapkan setelah aplikasi dimulai kembali.
+Fungsi perubahan tema dan warna akan memperbarui tampilan aplikasi sekaligus menyimpan pilihan pengguna.
 
-![Tema setelah restart](screenshots/07_tema-setelah-restart.png)
+## 8. Catatan Perbaikan Error
 
-## 🧰 Catatan Perbaikan dan Penyelesaian Error
+Selama proses pengembangan, terdapat beberapa kendala yang perlu ditangani.
 
-Selama pengembangan, terdapat beberapa kendala yang perlu diperbaiki agar aplikasi dapat dijalankan dengan baik.
+### 8.1. Error `MyApp isn't a class`
 
-### 1. Error `MyApp isn't a class` pada `widget_test.dart`
+Error ini muncul pada file `test/widget_test.dart` karena kode pengujian bawaan Flutter masih memanggil class `MyApp`, sedangkan aplikasi menggunakan widget utama `GaleriApp`.
 
-**Penyebab:** File pengujian bawaan Flutter masih memanggil widget `MyApp`, sedangkan aplikasi ini menggunakan widget utama `GaleriApp`.
+Perbaikan dilakukan dengan menyesuaikan file pengujian agar tidak lagi memanggil widget yang tidak tersedia.
 
-**Perbaikan:** File `test/widget_test.dart` disesuaikan agar tidak lagi memanggil `MyApp`. Pengujian dasar yang digunakan sementara hanya memeriksa operasi sederhana:
+Pengujian dasar yang digunakan adalah:
 
 ```dart
 import 'package:flutter_test/flutter_test.dart';
@@ -182,43 +199,37 @@ void main() {
 }
 ```
 
-Tes tersebut bukan pengujian tampilan aplikasi, melainkan tes sederhana agar tidak bergantung pada nama widget bawaan Flutter.
+Pengujian tersebut hanya memeriksa operasi sederhana dan tidak menguji tampilan atau fungsi aplikasi. Oleh karena itu, pengujian widget yang lebih lengkap tetap dapat dikembangkan jika diperlukan.
 
-### 2. Error `Null check operator used on a null value`
+### 8.2. Error `Null check operator used on a null value`
 
-**Pesan error:**
+Error ini muncul ketika aplikasi membangun `MaterialApp`. Stack trace menunjukkan bahwa error terjadi melalui mekanisme pembuatan route bawaan Flutter.
 
-```text
-_TypeError: Null check operator used on a null value
-```
+Perbaikan yang dilakukan adalah menyederhanakan konfigurasi route awal dengan menggunakan `home: GaleriShell(...)` sebagai halaman utama dan menangani route `/detail` melalui `onGenerateRoute`.
 
-Stack trace menunjukkan bahwa error terjadi ketika Flutter membangun `MaterialApp`, melalui mekanisme pembentukan route bawaan.
+Route yang tidak dikenal diarahkan ke halaman 404 agar aplikasi memiliki halaman alternatif yang jelas.
 
-**Perbaikan yang dilakukan:** Konfigurasi navigasi diperbarui dengan menggunakan `home: GaleriShell(...)` sebagai halaman awal, serta menangani route `/detail` melalui `onGenerateRoute`.
+### 8.3. Penanganan Kegagalan SharedPreferences
 
-Perbaikan tersebut bertujuan untuk menyederhanakan pembentukan route awal dan memastikan route yang tidak dikenal diarahkan ke halaman 404. Perubahan ini dilakukan setelah error ditemukan pada proses navigasi.
+Fungsi `_muatPengaturan()` dilengkapi dengan `try-catch` untuk menangani kegagalan ketika membaca preferensi. Jika terjadi kegagalan, aplikasi menggunakan pengaturan default dan menyelesaikan status loading.
 
-### 3. Penanganan kegagalan SharedPreferences
+Perubahan ini membantu menangani kegagalan pemuatan preferensi, tetapi tidak menggantikan kebutuhan untuk memeriksa stack trace jika error runtime lain muncul.
 
-Fungsi `_muatPengaturan()` diperbarui menggunakan `try-catch`. Jika pemuatan preferensi gagal, aplikasi menggunakan pengaturan default berupa tema terang dan warna indigo.
+### 8.4. Konflik Tag Hero
 
-Pendekatan ini membantu mencegah kegagalan membaca preferensi membuat aplikasi terus berada di layar loading. Namun, penanganan tersebut tidak otomatis menyelesaikan semua kemungkinan error lain.
+Karena destinasi yang sama dapat ditampilkan di Beranda dan Kategori, penggunaan tag Hero yang sama pada beberapa elemen dalam widget tree dapat menimbulkan konflik.
 
-### 4. Perbaikan transisi Hero pada tab Kategori
+Perbaikan dilakukan dengan menambahkan properti `gunakanHero` pada `KartuDestinasi`. Animasi Hero digunakan pada kartu Beranda, sedangkan kartu di Kategori menggunakan ikon tanpa Hero.
 
-Kartu destinasi pada Beranda dan Kategori dapat menampilkan destinasi yang sama. Untuk menghindari konflik tag Hero ketika beberapa kartu dengan tag identik berada dalam widget tree yang sama, animasi Hero dinonaktifkan pada kartu di Kategori.
+### 8.5. Menjalankan Ulang Aplikasi
 
-Animasi Hero tetap digunakan pada kartu Beranda yang membuka halaman detail.
-
-### 5. Menjalankan ulang aplikasi setelah perubahan
-
-Setelah perubahan kode disimpan, aplikasi dijalankan ulang menggunakan:
+Setelah melakukan perubahan kode, aplikasi dijalankan ulang untuk memastikan perubahan telah diterapkan.
 
 ```bash
 flutter run
 ```
 
-Jika diperlukan untuk membersihkan hasil build sebelumnya, jalankan:
+Jika diperlukan, hasil build sebelumnya dapat dibersihkan menggunakan:
 
 ```bash
 flutter clean
@@ -226,31 +237,78 @@ flutter pub get
 flutter run
 ```
 
-Perintah `flutter clean` merupakan langkah pembersihan build, bukan jaminan untuk memperbaiki semua error saat runtime.
+Perintah tersebut membantu membersihkan hasil build lama, tetapi tidak otomatis menyelesaikan seluruh error runtime.
 
-## ✅ Checklist Pengujian
+## 9. Dokumentasi Screenshot
 
-- [ ] Aplikasi dapat dibuka di perangkat Android.
-- [ ] Beranda menampilkan daftar destinasi.
-- [ ] Tab Beranda, Kategori, dan Pengaturan dapat digunakan.
-- [ ] Kategori dapat dibuka dan menampilkan destinasi.
-- [ ] Halaman detail menerima data destinasi dengan benar.
-- [ ] Animasi Hero berjalan saat membuka detail dari Beranda.
-- [ ] Animasi implisit pada `AnimatedContainer` dapat diamati ketika propertinya berubah.
-- [ ] Mode terang dan gelap dapat diubah.
-- [ ] Pilihan warna tema dapat diubah.
-- [ ] Pengaturan tema tetap tersimpan setelah aplikasi dibuka kembali.
-- [ ] Route yang tidak dikenal menampilkan halaman 404.
+Screenshot berikut digunakan sebagai dokumentasi hasil implementasi aplikasi.
 
-## 📝 Kesimpulan
+### 9.1. Beranda dengan Tema Terang
 
-Melalui proyek Galeri Katalog Interaktif, materi Flutter mengenai navigasi, tema aplikasi, animasi, dan penyimpanan preferensi diterapkan dalam satu aplikasi mobile.
+Menampilkan halaman utama aplikasi dalam mode terang, termasuk informasi pengenalan dan daftar destinasi.
 
-Proyek ini menjadi sarana untuk memahami bagaimana beberapa komponen Flutter dapat digabungkan untuk menghasilkan aplikasi yang terstruktur dan interaktif. Dokumentasi screenshot serta catatan perbaikan error disertakan sebagai bukti proses pengembangan.
+![Beranda tema terang](screenshots/01_beranda-tema-terang.png)
+
+### 9.2. Beranda dengan Tema Gelap
+
+Menampilkan halaman utama aplikasi setelah mode gelap diaktifkan.
+
+![Beranda tema gelap](screenshots/02_beranda-tema-gelap.png)
+
+### 9.3. Halaman Detail dengan Animasi Hero
+
+Menampilkan halaman detail destinasi yang dibuka dari Beranda dengan transisi elemen Hero.
+
+![Halaman detail Hero](screenshots/03_halaman-detail-hero.png)
+
+### 9.4. Halaman Kategori
+
+Menampilkan pengelompokan destinasi berdasarkan kategori yang tersedia.
+
+![Halaman kategori](screenshots/04_halaman-kategori.png)
+
+### 9.5. Halaman Detail dari Kategori
+
+Menampilkan dokumentasi halaman detail destinasi yang dibuka dari bagian Kategori.
+
+![Halaman detail kategori](screenshots/05_halaman-detail-kategori.png)
+
+### 9.6. Pengaturan Warna Tema
+
+Menampilkan pilihan warna tema dan pengaturan mode tampilan aplikasi.
+
+![Pengaturan warna tema](screenshots/06_pengaturan-warna.png)
+
+### 9.7. Tema Setelah Aplikasi Dibuka Kembali
+
+Menampilkan hasil pengujian persistensi pengaturan tema setelah aplikasi dimulai kembali.
+
+![Tema setelah restart](screenshots/07_tema-setelah-restart.png)
+
+## 10. Pengujian Aplikasi
+
+Pengujian dilakukan untuk memastikan fitur utama dapat digunakan dengan baik.
+
+1. Membuka aplikasi dan memastikan halaman Beranda tampil.
+2. Berpindah ke tab Kategori dan Pengaturan.
+3. Memilih destinasi dan membuka halaman detail.
+4. Memastikan animasi Hero berjalan saat membuka detail dari Beranda.
+5. Mengubah mode tampilan dari terang menjadi gelap dan sebaliknya.
+6. Mengubah warna tema dan memastikan tampilan mengikuti pilihan pengguna.
+7. Menutup dan membuka kembali aplikasi untuk memeriksa apakah preferensi tema tetap tersimpan.
+8. Memeriksa halaman alternatif ketika route yang tidak dikenal dibuka.
+
+## 11. Kesimpulan
+
+Aplikasi Galeri Katalog Interaktif menerapkan beberapa konsep penting dalam pengembangan aplikasi Flutter, yaitu pengelolaan tema, navigasi ant halaman, pengiriman argumen, animasi, dan penyimpanan preferensi pengguna.
+
+Melalui proyek ini, penggunaan `NavigationBar`, `IndexedStack`, named routes, `Hero`, `AnimatedContainer`, dan SharedPreferences dipadukan ke dalam sebuah aplikasi katalog destinasi wisata.
+
+Dokumentasi screenshot dan catatan perbaikan error disertakan untuk menjelaskan hasil implementasi serta kendala yang ditemui selama pengembangan.
 
 ---
 
 **Mata Kuliah:** Pemrograman Mobile  
 **Pertemuan:** 6  
-**Proyek:** Galeri Katalog Interaktif  
+**Nama Proyek:** Galeri Katalog Interaktif  
 **Framework:** Flutter
