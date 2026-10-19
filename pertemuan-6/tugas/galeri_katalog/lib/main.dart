@@ -127,20 +127,36 @@ class _GaleriAppState extends State<GaleriApp> {
     _muatPengaturan();
   }
 
+
   Future<void> _muatPengaturan() async {
-    final prefs = await SharedPreferences.getInstance();
-    final gelap = prefs.getBool(kunciModeGelap) ?? false;
-    final indeks = prefs.getInt(kunciWarnaTema) ?? 0;
-    final indeksAman = indeks.clamp(0, daftarWarna.length - 1);
+    try {
+      final prefs = await SharedPreferences.getInstance();
 
-    if (!mounted) return;
+      final gelap = prefs.getBool(kunciModeGelap) ?? false;
+      final indeks = prefs.getInt(kunciWarnaTema) ?? 0;
+      final indeksAman = indeks.clamp(0, daftarWarna.length - 1);
 
-    setState(() {
-      _mode = gelap ? ThemeMode.dark : ThemeMode.light;
-      _warna = daftarWarna[indeksAman];
-      _siap = true;
-    });
+      if (!mounted) return;
+
+      setState(() {
+        _mode = gelap ? ThemeMode.dark : ThemeMode.light;
+        _warna = daftarWarna[indeksAman];
+        _siap = true;
+      });
+    } catch (error, stackTrace) {
+      debugPrint('Gagal memuat pengaturan: $error');
+      debugPrintStack(stackTrace: stackTrace);
+
+      if (!mounted) return;
+
+      setState(() {
+        _mode = ThemeMode.light;
+        _warna = Colors.indigo;
+        _siap = true;
+      });
+    }
   }
+
 
   Future<void> _ubahMode(ThemeMode mode) async {
     setState(() => _mode = mode);
