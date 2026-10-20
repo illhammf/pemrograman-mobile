@@ -94,9 +94,4 @@ class Pengaturan extends ChangeNotifier {
       debugPrint('Gagal menyimpan target tabungan: $e');
     }
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
