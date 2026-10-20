@@ -241,49 +241,33 @@ Perintah tersebut membantu membersihkan hasil build lama, tetapi tidak otomatis 
 
 ## 9. Dokumentasi Screenshot
 
-Screenshot berikut digunakan sebagai dokumentasi hasil implementasi aplikasi.
+Bagian ini menampilkan hasil implementasi aplikasi Galeri Katalog Interaktif dalam bentuk galeri screenshot. Dokumentasi mencakup tampilan halaman utama, halaman detail, kategori, pengaturan warna, serta hasil pengujian penyimpanan tema setelah aplikasi dijalankan kembali.
 
-### 9.1. Beranda dengan Tema Terang
+### 9.1. Galeri Tampilan Aplikasi
 
-Menampilkan halaman utama aplikasi dalam mode terang, termasuk informasi pengenalan dan daftar destinasi.
+| Beranda Tema Terang | Beranda Tema Gelap | Halaman Detail |
+|:---:|:---:|:---:|
+| ![Beranda tema terang](screenshots/01_beranda-tema-terang.png) | ![Beranda tema gelap](screenshots/02_beranda-tema-gelap.png) | ![Halaman detail Hero](screenshots/03_halaman-detail-hero.png) |
 
-![Beranda tema terang](screenshots/01_beranda-tema-terang.png)
+| Halaman Kategori | Detail dari Kategori | Pengaturan Warna |
+|:---:|:---:|:---:|
+| ![Halaman kategori](screenshots/04_halaman-kategori.png) | ![Halaman detail kategori](screenshots/05_halaman-detail-kategori.png) | ![Pengaturan warna tema](screenshots/06_pengaturan-warna.png) |
 
-### 9.2. Beranda dengan Tema Gelap
+| Tema Setelah Restart |
+|:---:|
+| ![Tema setelah restart](screenshots/07_tema-setelah-restart.png) |
 
-Menampilkan halaman utama aplikasi setelah mode gelap diaktifkan.
+### 9.2. Keterangan Screenshot
 
-![Beranda tema gelap](screenshots/02_beranda-tema-gelap.png)
+1. **Beranda Tema Terang** — menampilkan halaman utama aplikasi dengan tema terang dan daftar destinasi wisata.
+2. **Beranda Tema Gelap** — menunjukkan perubahan tampilan setelah mode gelap diaktifkan.
+3. **Halaman Detail** — menunjukkan informasi destinasi yang dipilih beserta transisi Hero dari halaman Beranda.
+4. **Halaman Kategori** — menampilkan destinasi yang dikelompokkan berdasarkan kategori.
+5. **Detail dari Kategori** — menunjukkan halaman detail yang dibuka melalui daftar kategori.
+6. **Pengaturan Warna** — menampilkan pilihan mode terang atau gelap dan pilihan warna tema.
+7. **Tema Setelah Restart** — menjadi bukti pengujian bahwa preferensi tema tetap tersimpan setelah aplikasi dibuka kembali.
 
-### 9.3. Halaman Detail dengan Animasi Hero
-
-Menampilkan halaman detail destinasi yang dibuka dari Beranda dengan transisi elemen Hero.
-
-![Halaman detail Hero](screenshots/03_halaman-detail-hero.png)
-
-### 9.4. Halaman Kategori
-
-Menampilkan pengelompokan destinasi berdasarkan kategori yang tersedia.
-
-![Halaman kategori](screenshots/04_halaman-kategori.png)
-
-### 9.5. Halaman Detail dari Kategori
-
-Menampilkan dokumentasi halaman detail destinasi yang dibuka dari bagian Kategori.
-
-![Halaman detail kategori](screenshots/05_halaman-detail-kategori.png)
-
-### 9.6. Pengaturan Warna Tema
-
-Menampilkan pilihan warna tema dan pengaturan mode tampilan aplikasi.
-
-![Pengaturan warna tema](screenshots/06_pengaturan-warna.png)
-
-### 9.7. Tema Setelah Aplikasi Dibuka Kembali
-
-Menampilkan hasil pengujian persistensi pengaturan tema setelah aplikasi dimulai kembali.
-
-![Tema setelah restart](screenshots/07_tema-setelah-restart.png)
+**Catatan:** pastikan seluruh gambar benar-benar tersimpan di folder `screenshots/` dengan nama berkas yang sesuai. Jika nama berkas berbeda, sesuaikan jalur gambar pada tabel.
 
 ## 10. Pengujian Aplikasi
 
