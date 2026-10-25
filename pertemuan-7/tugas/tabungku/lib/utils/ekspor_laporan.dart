@@ -46,7 +46,7 @@ Future<void> eksporLaporanCsv({
     ]);
   }
 
-  final String isiCsv = const ListToCsvConverter().convert(baris);
+  final String isiCsv = _encodeCsv(baris);
 
   final Directory direktori = await getTemporaryDirectory();
 
@@ -78,4 +78,26 @@ Future<void> eksporLaporanCsv({
       text: 'Laporan kegiatan dan transaksi dari TabungKu.',
     ),
   );
+}
+
+String _encodeCsv(List<List<dynamic>> baris) {
+  return baris.map((kolom) {
+    return kolom.map((nilai) {
+      final teks = nilai?.toString() ?? '';
+
+      // Escape tanda kutip agar format CSV tetap valid.
+      final teksAman = teks.replaceAll('"', '""');
+
+      // Bungkus teks dengan tanda kutip jika mengandung
+      // koma, tanda kutip, atau baris baru.
+      if (teks.contains(',') ||
+          teks.contains('"') ||
+          teks.contains('\n') ||
+          teks.contains('\r')) {
+        return '"$teksAman"';
+      }
+
+      return teks;
+    }).join(',');
+  }).join('\r\n');
 }
