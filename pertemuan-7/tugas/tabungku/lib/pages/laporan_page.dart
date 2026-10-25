@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../data/db_helper.dart';
 import '../utils/format.dart';
+import '../models/kegiatan.dart';
+import '../utils/ekspor_laporan.dart';
 
 class LaporanPage extends StatefulWidget {
   const LaporanPage({super.key});
@@ -13,6 +15,53 @@ class LaporanPage extends StatefulWidget {
 
 class _LaporanPageState extends State<LaporanPage> {
   DateTime _tanggal = DateTime.now();
+
+  Future<void> _eksporCsv() async {
+    try {
+      final akhir = DateTime(
+        _tanggal.year,
+        _tanggal.month,
+        _tanggal.day,
+      );
+
+      final mulai = akhir.subtract(const Duration(days: 6));
+
+      final semuaKegiatan = <Kegiatan>[];
+
+      for (var hari = mulai;
+          !hari.isAfter(akhir);
+          hari = hari.add(const Duration(days: 1))) {
+        final tanggalHari = tanggalDatabase(hari);
+        final kegiatanHari =
+            await DbHelper.instance.pada(tanggalHari);
+
+        semuaKegiatan.addAll(kegiatanHari);
+      }
+
+      if (!mounted) return;
+
+      if (semuaKegiatan.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Tidak ada kegiatan dalam periode laporan ini.',
+            ),
+          ),
+        );
+        return;
+      }
+
+      await eksporLaporanCsv(kegiatan: semuaKegiatan);
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Gagal mengekspor laporan: $e'),
+        ),
+      );
+    }
+  }
 
   Future<void> _pilihTanggal() async {
     final hasil = await showDatePicker(
@@ -72,6 +121,18 @@ class _LaporanPageState extends State<LaporanPage> {
                     onTap: _pilihTanggal,
                   ),
                 ),
+                
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: _eksporCsv,
+                  icon: const Icon(Icons.file_download_outlined),
+                  label: const Text('Ekspor Laporan ke CSV'),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 50),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
                 const SizedBox(height: 16),
                 Text(
                   'Ringkasan Keuangan',
