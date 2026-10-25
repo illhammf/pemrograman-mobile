@@ -366,7 +366,6 @@ Pengujian fungsional dilakukan secara manual dengan menjalankan aplikasi dan mem
 
 Hasil tersebut merupakan hasil pengujian fungsional manual. Pemeriksaan otomatis melalui `flutter test` dan analisis kode melalui `flutter analyze` merupakan pemeriksaan terpisah dan perlu dijalankan kembali pada versi kode final.
 
-
 ## Dokumentasi Screenshot
 
 Berikut merupakan dokumentasi antarmuka aplikasi TabungKu.
