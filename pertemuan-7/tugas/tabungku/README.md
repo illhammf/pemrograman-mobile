@@ -366,47 +366,47 @@ Pengujian fungsional dilakukan secara manual dengan menjalankan aplikasi dan mem
 
 Hasil tersebut merupakan hasil pengujian fungsional manual. Pemeriksaan otomatis melalui `flutter test` dan analisis kode melalui `flutter analyze` merupakan pemeriksaan terpisah dan perlu dijalankan kembali pada versi kode final.
 
+
 ## Dokumentasi Screenshot
 
-Simpan screenshot aplikasi di folder `screenshots/` pada root proyek. Gunakan nama file sesuai gambar yang benar-benar tersedia.
+Berikut merupakan dokumentasi antarmuka aplikasi TabungKu.
 
-### 1. Beranda dan Ringkasan Keuangan
-
-![Tampilan Beranda TabungKu](screenshots/beranda.png)
-
-Halaman Beranda menampilkan ringkasan keuangan harian, progres target tabungan, serta daftar kegiatan.
-
-### 2. Formulir Kegiatan
-
-![Formulir kegiatan TabungKu](screenshots/form-kegiatan.png)
-
-Formulir digunakan untuk menambahkan dan mengubah kegiatan, memilih tanggal, menentukan kategori, serta mengisi informasi transaksi.
-
-### 3. Pencarian dan Filter
-
-![Pencarian dan filter kegiatan](screenshots/pencarian-filter.png)
-
-Fitur pencarian membantu menemukan kegiatan berdasarkan judul atau kategori, sedangkan filter membatasi daftar berdasarkan status penyelesaian.
-
-### 4. Laporan Keuangan
-
-![Halaman laporan TabungKu](screenshots/laporan.png)
-
-Halaman Laporan menampilkan ringkasan keuangan, pengeluaran per kategori, dan rekap transaksi selama tujuh hari.
-
-### 5. Pengaturan
-
-![Halaman pengaturan TabungKu](screenshots/pengaturan.png)
-
-Halaman Pengaturan digunakan untuk mengubah tema, warna tema, dan target tabungan.
-
-### 6. Ekspor CSV
-
-![Fitur ekspor CSV TabungKu](screenshots/ekspor-csv.png)
-
-Fitur ekspor menghasilkan file CSV yang dapat dibagikan melalui menu berbagi perangkat.
-
-> **Penting:** jika nama file screenshot milikmu berbeda, sesuaikan seluruh path gambar di atas. GitHub hanya akan menampilkan gambar yang benar-benar tersedia pada lokasi yang ditulis.
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <strong>1. Beranda</strong><br><br>
+      <img src="screenshots/beranda.png" width="220" alt="Beranda TabungKu"><br>
+      <sub>Ringkasan keuangan dan daftar kegiatan.</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>2. Formulir Kegiatan</strong><br><br>
+      <img src="screenshots/form-kegiatan.png" width="220" alt="Formulir Kegiatan"><br>
+      <sub>Formulir tambah dan ubah kegiatan.</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>3. Pencarian dan Filter</strong><br><br>
+      <img src="screenshots/pencarian-filter.png" width="220" alt="Pencarian dan Filter"><br>
+      <sub>Pencarian judul dan kategori serta filter status.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <strong>4. Laporan Keuangan</strong><br><br>
+      <img src="screenshots/laporan.png" width="220" alt="Laporan Keuangan"><br>
+      <sub>Ringkasan keuangan dan rekap tujuh hari.</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>5. Pengaturan</strong><br><br>
+      <img src="screenshots/pengaturan.png" width="220" alt="Pengaturan TabungKu"><br>
+      <sub>Pengaturan tema dan target tabungan.</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>6. Ekspor CSV</strong><br><br>
+      <img src="screenshots/ekspor-csv.png" width="220" alt="Ekspor CSV"><br>
+      <sub>Proses ekspor dan berbagi laporan CSV.</sub>
+    </td>
+  </tr>
+</table>
 
 ## Kendala dan Penanganan
 
