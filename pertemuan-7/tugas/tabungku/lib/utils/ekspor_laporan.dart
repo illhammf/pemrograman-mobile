@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,9 +6,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../models/kegiatan.dart';
 
-Future<void> eksporLaporanCsv({
-  required List<Kegiatan> kegiatan,
-}) async {
+Future<void> eksporLaporanCsv({required List<Kegiatan> kegiatan}) async {
   if (kegiatan.isEmpty) {
     throw Exception('Tidak ada kegiatan untuk diekspor.');
   }
@@ -54,25 +51,14 @@ Future<void> eksporLaporanCsv({
       .replaceAll(':', '-')
       .replaceAll('.', '-');
 
-  final File file = File(
-    '${direktori.path}/laporan_tabungku_$waktu.csv',
-  );
+  final File file = File('${direktori.path}/laporan_tabungku_$waktu.csv');
 
   // BOM membantu Excel mengenali teks UTF-8.
-  await file.writeAsString(
-    '\uFEFF$isiCsv',
-    encoding: utf8,
-    flush: true,
-  );
+  await file.writeAsString('\uFEFF$isiCsv', encoding: utf8, flush: true);
 
   await SharePlus.instance.share(
     ShareParams(
-      files: [
-        XFile(
-          file.path,
-          mimeType: 'text/csv',
-        ),
-      ],
+      files: [XFile(file.path, mimeType: 'text/csv')],
       subject: 'Laporan Keuangan TabungKu',
       text: 'Laporan kegiatan dan transaksi dari TabungKu.',
     ),
@@ -80,23 +66,27 @@ Future<void> eksporLaporanCsv({
 }
 
 String _encodeCsv(List<List<dynamic>> baris) {
-  return baris.map((kolom) {
-    return kolom.map((nilai) {
-      final teks = nilai?.toString() ?? '';
+  return baris
+      .map((kolom) {
+        return kolom
+            .map((nilai) {
+              final teks = nilai?.toString() ?? '';
 
-      // Escape tanda kutip agar format CSV tetap valid.
-      final teksAman = teks.replaceAll('"', '""');
+              // Escape tanda kutip agar format CSV tetap valid.
+              final teksAman = teks.replaceAll('"', '""');
 
-      // Bungkus teks dengan tanda kutip jika mengandung
-      // koma, tanda kutip, atau baris baru.
-      if (teks.contains(',') ||
-          teks.contains('"') ||
-          teks.contains('\n') ||
-          teks.contains('\r')) {
-        return '"$teksAman"';
-      }
+              // Bungkus teks dengan tanda kutip jika mengandung
+              // koma, tanda kutip, atau baris baru.
+              if (teks.contains(',') ||
+                  teks.contains('"') ||
+                  teks.contains('\n') ||
+                  teks.contains('\r')) {
+                return '"$teksAman"';
+              }
 
-      return teks;
-    }).join(',');
-  }).join('\r\n');
+              return teks;
+            })
+            .join(',');
+      })
+      .join('\r\n');
 }
