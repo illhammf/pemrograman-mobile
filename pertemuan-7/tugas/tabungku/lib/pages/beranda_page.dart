@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../data/db_helper.dart';
 import '../models/kegiatan.dart';
-import '../utils/format.dart';
 import '../state/pengaturan.dart';
+import '../utils/format.dart';
 
-
-class BerandaPage extends StatelessWidget {
+class BerandaPage extends StatefulWidget {
   final Pengaturan pengaturan;
 
   const BerandaPage({
@@ -15,6 +14,51 @@ class BerandaPage extends StatelessWidget {
     required this.pengaturan,
   });
 
+  @override
+  State<BerandaPage> createState() => _BerandaPageState();
+}
+
+class _BerandaPageState extends State<BerandaPage> {
+  final TextEditingController _pencarianController =
+      TextEditingController();
+
+  String _kataKunci = '';
+  String _filterStatus = 'Semua';
+
+  List<Kegiatan> _filterKegiatan(List<Kegiatan> daftar) {
+    final kataKunci = _kataKunci.trim().toLowerCase();
+
+    return daftar.where((kegiatan) {
+      final judul = kegiatan.judul.toLowerCase();
+      final kategori = kegiatan.kategori.toLowerCase();
+
+      final cocokPencarian =
+          judul.contains(kataKunci) ||
+          kategori.contains(kataKunci);
+
+      final cocokStatus = switch (_filterStatus) {
+        'Belum selesai' => !kegiatan.selesai,
+        'Selesai' => kegiatan.selesai,
+        _ => true,
+      };
+
+      return cocokPencarian && cocokStatus;
+    }).toList();
+  }
+
+  void _hapusPencarian() {
+    _pencarianController.clear();
+
+    setState(() {
+      _kataKunci = '';
+    });
+  }
+
+  @override
+  void dispose() {
+    _pencarianController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +79,8 @@ class BerandaPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Text(
-                    'Gagal membaca data kegiatan:\n${snapshot.error}',
+                    'Gagal membaca data kegiatan:\n'
+                    '${snapshot.error}',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -50,12 +95,16 @@ class BerandaPage extends StatelessWidget {
 
             final kegiatan =
                 snapshot.data![0] as List<Kegiatan>;
+
             final ringkasan =
                 snapshot.data![1] as Ringkasan;
+
+            final kegiatanTampil = _filterKegiatan(kegiatan);
 
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
+                // Header halaman.
                 Text(
                   'Halo, selamat datang!',
                   style: tema.textTheme.headlineSmall?.copyWith(
@@ -83,12 +132,15 @@ class BerandaPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
+
                         Row(
                           children: [
                             Expanded(
                               child: _InfoAngka(
                                 label: 'Pemasukan',
-                                nilai: formatRupiah(ringkasan.pemasukan),
+                                nilai: formatRupiah(
+                                  ringkasan.pemasukan,
+                                ),
                                 ikon: Icons.trending_up,
                                 warna: Colors.green,
                               ),
@@ -97,14 +149,19 @@ class BerandaPage extends StatelessWidget {
                             Expanded(
                               child: _InfoAngka(
                                 label: 'Pengeluaran',
-                                nilai: formatRupiah(ringkasan.pengeluaran),
+                                nilai: formatRupiah(
+                                  ringkasan.pengeluaran,
+                                ),
                                 ikon: Icons.trending_down,
                                 warna: Colors.red,
                               ),
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 16),
+
+                        // Saldo tabungan hari ini.
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(14),
@@ -125,64 +182,88 @@ class BerandaPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   color: ringkasan.tabungan < 0
                                       ? tema.colorScheme.onErrorContainer
-                                      : tema.colorScheme.onPrimaryContainer,
+                                      : tema.colorScheme
+                                          .onPrimaryContainer,
                                 ),
                               ),
+
                               if (ringkasan.tabungan < 0)
                                 const Padding(
                                   padding: EdgeInsets.only(top: 6),
                                   child: Text(
-                                    'Pengeluaran lebih besar daripada pemasukan.',
+                                    'Pengeluaran lebih besar '
+                                    'daripada pemasukan.',
                                   ),
                                 ),
-                                
+
                               const SizedBox(height: 16),
+
+                              // Progres target tabungan.
                               AnimatedBuilder(
-                                animation: pengaturan,
+                                animation: widget.pengaturan,
                                 builder: (context, _) {
-                                  final target = pengaturan.targetTabungan;
+                                  final target = widget
+                                      .pengaturan.targetTabungan;
                                   final tabungan = ringkasan.tabungan;
 
                                   final progres = target <= 0
                                       ? 0.0
-                                      : (tabungan / target).clamp(0.0, 1.0).toDouble();
+                                      : (tabungan / target)
+                                          .clamp(0.0, 1.0)
+                                          .toDouble();
 
                                   return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text('Progres Target Tabungan'),
-                                          Text('${(progres * 100).round()}%'),
+                                          const Expanded(
+                                            child: Text(
+                                              'Progres Target Tabungan',
+                                            ),
+                                          ),
+                                          Text(
+                                            '${(progres * 100).round()}%',
+                                          ),
                                         ],
                                       ),
                                       const SizedBox(height: 8),
+
                                       TweenAnimationBuilder<double>(
                                         tween: Tween<double>(
                                           begin: 0,
                                           end: progres,
                                         ),
-                                        duration: const Duration(milliseconds: 700),
+                                        duration: const Duration(
+                                          milliseconds: 700,
+                                        ),
                                         curve: Curves.easeOutCubic,
                                         builder: (context, nilai, _) {
                                           return LinearProgressIndicator(
                                             value: nilai,
                                             minHeight: 10,
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           );
                                         },
                                       ),
+
                                       const SizedBox(height: 6),
                                       Text(
                                         'Target: ${formatRupiah(target)}',
-                                        style: Theme.of(context).textTheme.bodySmall,
+                                        style: tema.textTheme.bodySmall,
                                       ),
-                                      if (target > 0 && tabungan >= target)
+
+                                      if (target > 0 &&
+                                          tabungan >= target)
                                         const Padding(
                                           padding: EdgeInsets.only(top: 8),
                                           child: Text(
-                                            'Target tabungan hari ini tercapai!',
+                                            'Target tabungan hari ini '
+                                            'tercapai!',
                                           ),
                                         ),
                                     ],
@@ -192,7 +273,10 @@ class BerandaPage extends StatelessWidget {
                             ],
                           ),
                         ),
+
                         const SizedBox(height: 16),
+
+                        // Statistik kegiatan.
                         Row(
                           children: [
                             Expanded(
@@ -220,6 +304,8 @@ class BerandaPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
+
+                // Judul daftar kegiatan.
                 Text(
                   'Daftar Kegiatan',
                   style: tema.textTheme.titleLarge?.copyWith(
@@ -228,24 +314,142 @@ class BerandaPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
+                // Fitur pencarian judul dan kategori.
+                TextField(
+                  controller: _pencarianController,
+                  onChanged: (nilai) {
+                    setState(() {
+                      _kataKunci = nilai;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Cari judul atau kategori kegiatan...',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: _kataKunci.isEmpty
+                        ? null
+                        : IconButton(
+                            tooltip: 'Hapus pencarian',
+                            onPressed: _hapusPencarian,
+                            icon: const Icon(Icons.clear),
+                          ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // Filter status kegiatan.
+                DropdownButtonFormField<String>(
+                  initialValue: _filterStatus,
+                  decoration: InputDecoration(
+                    labelText: 'Filter status kegiatan',
+                    prefixIcon: const Icon(Icons.filter_list),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'Semua',
+                      child: Text('Semua kegiatan'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Belum selesai',
+                      child: Text('Belum selesai'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Selesai',
+                      child: Text('Sudah selesai'),
+                    ),
+                  ],
+                  onChanged: (nilai) {
+                    if (nilai == null) return;
+
+                    setState(() {
+                      _filterStatus = nilai;
+                    });
+                  },
+                ),
+
+                const SizedBox(height: 12),
+
+                // Informasi jumlah hasil filter.
+                Text(
+                  '${kegiatanTampil.length} dari '
+                  '${kegiatan.length} kegiatan ditampilkan',
+                  style: tema.textTheme.bodySmall,
+                ),
+
+                const SizedBox(height: 8),
+
+                // Daftar kegiatan atau pesan kosong.
                 if (kegiatan.isEmpty)
                   const Card(
                     child: Padding(
                       padding: EdgeInsets.all(24),
                       child: Column(
                         children: [
-                          Icon(Icons.event_note, size: 44),
+                          Icon(
+                            Icons.event_note,
+                            size: 44,
+                          ),
                           SizedBox(height: 8),
-                          Text('Belum ada kegiatan hari ini.'),
+                          Text(
+                            'Belum ada kegiatan hari ini.',
+                            textAlign: TextAlign.center,
+                          ),
                           SizedBox(height: 4),
-                          Text('Tekan tombol Tambah untuk memulai.'),
+                          Text(
+                            'Tekan tombol Tambah untuk memulai.',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else if (kegiatanTampil.isEmpty)
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          const Icon(
+                            Icons.search_off,
+                            size: 44,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Tidak ada kegiatan yang sesuai.',
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Coba ubah kata kunci atau filter status.',
+                            textAlign: TextAlign.center,
+                            style: tema.textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 12),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              _hapusPencarian();
+
+                              setState(() {
+                                _filterStatus = 'Semua';
+                              });
+                            },
+                            icon: const Icon(Icons.refresh),
+                            label: const Text('Reset pencarian dan filter'),
+                          ),
                         ],
                       ),
                     ),
                   )
                 else
-                  for (final item in kegiatan)
+                  for (final item in kegiatanTampil)
                     _KegiatanTile(kegiatan: item),
+
                 const SizedBox(height: 80),
               ],
             );
@@ -256,6 +460,7 @@ class BerandaPage extends StatelessWidget {
   }
 }
 
+// Widget statistik ringkasan.
 class _InfoAngka extends StatelessWidget {
   final String label;
   final String nilai;
@@ -274,7 +479,10 @@ class _InfoAngka extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(ikon, color: warna),
+        Icon(
+          ikon,
+          color: warna,
+        ),
         const SizedBox(height: 6),
         Text(
           label,
@@ -292,10 +500,13 @@ class _InfoAngka extends StatelessWidget {
   }
 }
 
+// Widget satu item kegiatan.
 class _KegiatanTile extends StatelessWidget {
   final Kegiatan kegiatan;
 
-  const _KegiatanTile({required this.kegiatan});
+  const _KegiatanTile({
+    required this.kegiatan,
+  });
 
   @override
   Widget build(BuildContext context) {
