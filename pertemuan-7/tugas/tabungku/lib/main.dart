@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'pages/form_kegiatan_page.dart';
@@ -18,10 +17,7 @@ Future<void> main() async {
 class TabungKuApp extends StatelessWidget {
   final Pengaturan pengaturan;
 
-  const TabungKuApp({
-    super.key,
-    required this.pengaturan,
-  });
+  const TabungKuApp({super.key, required this.pengaturan});
 
   ThemeData _buatTema(Color warna, Brightness brightness) {
     return ThemeData(
@@ -31,9 +27,7 @@ class TabungKuApp extends StatelessWidget {
       scaffoldBackgroundColor: brightness == Brightness.light
           ? const Color(0xFFF5F8F7)
           : null,
-      appBarTheme: const AppBarTheme(
-        centerTitle: false,
-      ),
+      appBarTheme: const AppBarTheme(centerTitle: false),
       cardTheme: CardThemeData(
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -57,14 +51,8 @@ class TabungKuApp extends StatelessWidget {
         return MaterialApp(
           title: 'TabungKu',
           debugShowCheckedModeBanner: false,
-          theme: _buatTema(
-            pengaturan.warnaTema,
-            Brightness.light,
-          ),
-          darkTheme: _buatTema(
-            pengaturan.warnaTema,
-            Brightness.dark,
-          ),
+          theme: _buatTema(pengaturan.warnaTema, Brightness.light),
+          darkTheme: _buatTema(pengaturan.warnaTema, Brightness.dark),
           themeMode: pengaturan.mode,
           home: ShellPage(pengaturan: pengaturan),
           onGenerateRoute: (settings) {
@@ -74,17 +62,14 @@ class TabungKuApp extends StatelessWidget {
               if (argumen == null || argumen is Kegiatan) {
                 return MaterialPageRoute<void>(
                   settings: settings,
-                  builder: (_) => FormKegiatanPage(
-                    kegiatan: argumen as Kegiatan?,
-                  ),
+                  builder: (_) =>
+                      FormKegiatanPage(kegiatan: argumen as Kegiatan?),
                 );
               }
 
               return MaterialPageRoute<void>(
                 builder: (_) => const Scaffold(
-                  body: Center(
-                    child: Text('Data form tidak valid.'),
-                  ),
+                  body: Center(child: Text('Data form tidak valid.')),
                 ),
               );
             }

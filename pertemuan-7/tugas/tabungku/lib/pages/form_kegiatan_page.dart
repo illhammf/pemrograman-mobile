@@ -189,7 +189,7 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<Tipe>(
-              value: _tipe,
+              initialValue: _tipe,
               decoration: const InputDecoration(
                 labelText: 'Jenis kegiatan',
                 prefixIcon: Icon(Icons.account_balance_wallet_outlined),
@@ -244,7 +244,7 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
             if (_tipe == Tipe.pengeluaran) ...[
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                value: _kategori,
+                initialValue: _kategori,
                 decoration: const InputDecoration(
                   labelText: 'Kategori pengeluaran',
                   prefixIcon: Icon(Icons.category_outlined),

@@ -4,9 +4,17 @@ import 'package:flutter/material.dart';
 import '../data/db_helper.dart';
 import '../models/kegiatan.dart';
 import '../utils/format.dart';
+import '../state/pengaturan.dart';
+
 
 class BerandaPage extends StatelessWidget {
-  const BerandaPage({super.key});
+  final Pengaturan pengaturan;
+
+  const BerandaPage({
+    super.key,
+    required this.pengaturan,
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +135,60 @@ class BerandaPage extends StatelessWidget {
                                     'Pengeluaran lebih besar daripada pemasukan.',
                                   ),
                                 ),
+                                
+                              const SizedBox(height: 16),
+                              AnimatedBuilder(
+                                animation: pengaturan,
+                                builder: (context, _) {
+                                  final target = pengaturan.targetTabungan;
+                                  final tabungan = ringkasan.tabungan;
+
+                                  final progres = target <= 0
+                                      ? 0.0
+                                      : (tabungan / target).clamp(0.0, 1.0).toDouble();
+
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text('Progres Target Tabungan'),
+                                          Text('${(progres * 100).round()}%'),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      TweenAnimationBuilder<double>(
+                                        tween: Tween<double>(
+                                          begin: 0,
+                                          end: progres,
+                                        ),
+                                        duration: const Duration(milliseconds: 700),
+                                        curve: Curves.easeOutCubic,
+                                        builder: (context, nilai, _) {
+                                          return LinearProgressIndicator(
+                                            value: nilai,
+                                            minHeight: 10,
+                                            borderRadius: BorderRadius.circular(10),
+                                          );
+                                        },
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        'Target: ${formatRupiah(target)}',
+                                        style: Theme.of(context).textTheme.bodySmall,
+                                      ),
+                                      if (target > 0 && tabungan >= target)
+                                        const Padding(
+                                          padding: EdgeInsets.only(top: 8),
+                                          child: Text(
+                                            'Target tabungan hari ini tercapai!',
+                                          ),
+                                        ),
+                                    ],
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         ),

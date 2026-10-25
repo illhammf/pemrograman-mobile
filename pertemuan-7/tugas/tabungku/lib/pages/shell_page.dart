@@ -30,7 +30,7 @@ class _ShellPageState extends State<ShellPage> {
   @override
   Widget build(BuildContext context) {
     final halaman = [
-      const BerandaPage(),
+      BerandaPage(pengaturan: widget.pengaturan),
       const LaporanPage(),
       PengaturanPage(pengaturan: widget.pengaturan),
     ];
