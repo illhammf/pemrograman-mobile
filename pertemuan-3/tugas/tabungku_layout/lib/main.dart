@@ -1,122 +1,443 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TabungKuLayoutApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TabungKuLayoutApp extends StatelessWidget {
+  const TabungKuLayoutApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TabungKu',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xFF00897B),
+        scaffoldBackgroundColor: const Color(0xFFF4F7F6),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFF4F7F6),
+          foregroundColor: Color(0xFF173B36),
+          centerTitle: false,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const RingkasanPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+// Model sederhana untuk data transaksi statis.
+class Transaksi {
+  final String judul;
+  final String tanggal;
+  final String nominal;
+  final bool pemasukan;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  const Transaksi({
+    required this.judul,
+    required this.tanggal,
+    required this.nominal,
+    required this.pemasukan,
+  });
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class RingkasanPage extends StatelessWidget {
+  const RingkasanPage({super.key});
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  // Data transaksi dibuat statis sesuai instruksi tugas.
+  final List<Transaksi> transaksi = const [
+    Transaksi(
+      judul: 'Menabung Bulanan',
+      tanggal: '08 November 2026',
+      nominal: '+ Rp500.000',
+      pemasukan: true,
+    ),
+    Transaksi(
+      judul: 'Membeli Buku',
+      tanggal: '07 November 2026',
+      nominal: '- Rp75.000',
+      pemasukan: false,
+    ),
+    Transaksi(
+      judul: 'Uang Saku',
+      tanggal: '05 November 2026',
+      nominal: '+ Rp200.000',
+      pemasukan: true,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
+      // AppBar sebagai judul utama halaman.
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text(
+          'Ringkasan Tabungan',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
+
+      // LayoutBuilder mendeteksi lebar layar untuk menyesuaikan tata letak.
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool layarTablet = constraints.maxWidth >= 700;
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: layarTablet ? 32 : 20,
+              vertical: 20,
+            ),
+            child: Center(
+              // Membatasi lebar konten agar tetap rapi pada layar besar.
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1050),
+                child: layarTablet
+                    ? _layoutTablet(context)
+                    : _layoutPonsel(context),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Tata letak untuk layar ponsel menggunakan Column.
+  Widget _layoutPonsel(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _kartuRingkasan(),
+        const SizedBox(height: 24),
+        _judulBagian('Menu Cepat'),
+        const SizedBox(height: 12),
+        _menuCepat(context),
+        const SizedBox(height: 28),
+        _judulBagian('Riwayat Transaksi'),
+        const SizedBox(height: 12),
+        _daftarTransaksi(),
+      ],
+    );
+  }
+
+  // Tata letak tablet menggunakan Row agar dua bagian dapat berdampingan.
+  Widget _layoutTablet(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _kartuRingkasan(),
+              const SizedBox(height: 24),
+              _judulBagian('Menu Cepat'),
+              const SizedBox(height: 12),
+              _menuCepat(context),
+            ],
+          ),
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          flex: 6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _judulBagian('Riwayat Transaksi'),
+              const SizedBox(height: 12),
+              _daftarTransaksi(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Kartu utama yang berisi nama tabungan, saldo, dan target.
+  Widget _kartuRingkasan() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        color: const Color(0xFF00897B),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.savings_outlined, color: Colors.white, size: 28),
+              SizedBox(width: 10),
+              Text(
+                'Tabungan Masa Depan',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          const Text(
+            'Saldo Saat Ini',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Rp2.500.000',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Row membagi informasi target dan progres menjadi dua kolom.
+          Row(
+            children: [
+              Expanded(
+                child: _informasiSaldo(
+                  'Target Tabungan',
+                  'Rp5.000.000',
+                  Icons.flag_outlined,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _informasiSaldo(
+                  'Terkumpul',
+                  '50%',
+                  Icons.trending_up,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Indikator progres menggunakan LinearProgressIndicator.
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: const LinearProgressIndicator(
+              value: 0.5,
+              minHeight: 9,
+              backgroundColor: Colors.white30,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget kecil untuk informasi target dan progres tabungan.
+  Widget _informasiSaldo(String judul, String nilai, IconData ikon) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            const Text('You have pushed the button this many times:'),
+            Icon(ikon, color: Colors.white70, size: 17),
+            const SizedBox(width: 5),
+            Flexible(
+              child: Text(
+                judul,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          nilai,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Tiga tombol menu menggunakan Row dan Expanded.
+  Widget _menuCepat(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _tombolMenu(
+            context,
+            'Menabung',
+            Icons.add_circle_outline,
+            const Color(0xFFE0F2F1),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _tombolMenu(
+            context,
+            'Tarik',
+            Icons.remove_circle_outline,
+            const Color(0xFFFFF3E0),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _tombolMenu(
+            context,
+            'Riwayat',
+            Icons.history,
+            const Color(0xFFEDE7F6),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Tampilan masing-masing tombol menu.
+  Widget _tombolMenu(
+    BuildContext context,
+    String judul,
+    IconData ikon,
+    Color warna,
+  ) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Menu $judul dipilih')),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+        decoration: BoxDecoration(
+          color: warna,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          children: [
+            Icon(ikon, size: 27, color: const Color(0xFF24564E)),
+            const SizedBox(height: 8),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              judul,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF24564E),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+  // Judul untuk setiap bagian halaman.
+  Widget _judulBagian(String judul) {
+    return Text(
+      judul,
+      style: const TextStyle(
+        fontSize: 19,
+        fontWeight: FontWeight.bold,
+        color: Color(0xFF173B36),
       ),
+    );
+  }
+
+  // Daftar transaksi ditampilkan menggunakan ListView.builder.
+  Widget _daftarTransaksi() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: transaksi.length,
+      itemBuilder: (context, index) {
+        final item = transaksi[index];
+
+        return Card(
+          elevation: 0,
+          margin: const EdgeInsets.only(bottom: 12),
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
+                // Ikon transaksi.
+                Container(
+                  padding: const EdgeInsets.all(11),
+                  decoration: BoxDecoration(
+                    color: item.pemasukan
+                        ? const Color(0xFFE0F2F1)
+                        : const Color(0xFFFFEBEE),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    item.pemasukan
+                        ? Icons.arrow_downward
+                        : Icons.arrow_upward,
+                    color: item.pemasukan
+                        ? Colors.teal
+                        : Colors.redAccent,
+                  ),
+                ),
+                const SizedBox(width: 12),
+
+                // Expanded memberikan ruang fleksibel untuk judul dan tanggal.
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.judul,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        item.tanggal,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+
+                // Nominal tetap terlihat dan tidak terpotong.
+                Flexible(
+                  child: Text(
+                    item.nominal,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: item.pemasukan
+                          ? Colors.teal
+                          : Colors.redAccent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
