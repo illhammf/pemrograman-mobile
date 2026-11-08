@@ -189,7 +189,7 @@ dependencies:
 |---|---|
 | Nama | Ilham Firmansyah |
 | NIM | 20240801102 |
-| Mata Kuliah | TI505 Pemrograman Mobile |
+| Mata Kuliah | CIE511 Pemrograman Mobile |
 | Project | Daftar Belanja |
 
 ---
