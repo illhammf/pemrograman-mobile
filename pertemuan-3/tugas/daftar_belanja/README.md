@@ -1,710 +1,197 @@
-# Aplikasi Daftar Belanja
+# Daftar Belanja
 
-## Tugas Pertemuan 3 — Pemrograman Mobile
+Aplikasi mobile sederhana berbasis Flutter untuk mengelola daftar kebutuhan belanja. Aplikasi ini memungkinkan pengguna menambahkan barang, menentukan jumlah dan kategori, menandai barang yang sudah dibeli, serta menghapus barang dari daftar.
 
-Aplikasi **Daftar Belanja** merupakan tugas utama pada Praktikum Pemrograman Mobile Pertemuan 3 dengan topik **Form Input dan State Management**.
+Project ini dibuat sebagai bagian dari praktikum dan tugas mata kuliah **TI505 Pemrograman Mobile**.
 
-Aplikasi ini dibuat menggunakan Flutter dan menerapkan form dengan validasi, dropdown, state management menggunakan `ChangeNotifier`, serta Provider untuk berbagi state antara halaman form dan halaman daftar.
+## Informasi Project
 
----
-
-# 1. Identitas
-
-| Keterangan | Data |
+| Keterangan | Detail |
 |---|---|
-| Nama | Ilham Firmansyah |
-| NIM | 20240801102 |
-| Jurusan | Teknik Informatika |
-| Mata Kuliah | Pemrograman Mobile |
-| Pertemuan | 3 |
-| Topik | Form Input dan State Management |
-
----
-
-# 2. Deskripsi Aplikasi
-
-Aplikasi Daftar Belanja terdiri dari dua halaman utama:
-
-1. **Halaman Daftar Belanja**
-2. **Halaman Form Tambah Barang**
-
-Halaman daftar digunakan untuk melihat seluruh barang yang telah ditambahkan, menandai barang sebagai sudah dibeli, dan menghapus barang.
-
-Halaman form digunakan untuk memasukkan barang baru dengan validasi pada setiap input.
-
-State aplikasi dikelola menggunakan satu `ChangeNotifier` dan dibagikan kepada widget menggunakan Provider.
-
----
-
-# 3. Tujuan Pembuatan
-
-Aplikasi ini dibuat untuk menerapkan materi yang dipelajari pada Pertemuan 3, yaitu:
-
-- `TextField` dan `TextEditingController`
-- `Form`
-- `TextFormField`
-- Validasi input
-- `DropdownButtonFormField`
-- `Checkbox`
-- `ChangeNotifier`
-- `ChangeNotifierProvider`
-- `context.watch`
-- `context.read`
-- `notifyListeners`
-- `ListView.builder`
-- `Navigator.push`
-- `Navigator.pop`
-
----
-
-# 4. Ketentuan Tugas
-
-Berdasarkan modul Pertemuan 3, aplikasi Daftar Belanja harus memiliki ketentuan berikut:
-
-## Halaman Form Tambah
-
-Form harus memiliki:
-
-- Nama barang.
-- Jumlah barang.
-- Kategori barang.
-
-Setiap input harus memiliki validasi.
-
-### Validasi Nama
-
-Nama barang wajib diisi.
-
-### Validasi Jumlah
-
-Jumlah barang:
-
-- wajib diisi;
-- harus berupa angka;
-- harus lebih dari 0.
-
-### Validasi Kategori
-
-Kategori barang wajib dipilih melalui dropdown.
-
----
-
-## Halaman Daftar
-
-Halaman daftar harus:
-
-- Menampilkan seluruh barang.
-- Menampilkan jumlah barang.
-- Memungkinkan barang dicentang sebagai sudah dibeli.
-- Memungkinkan barang dihapus.
-- Menampilkan jumlah barang yang belum dibeli pada AppBar.
-
----
-
-## State Management
-
-State aplikasi disimpan pada satu `ChangeNotifier`.
-
-State kemudian dibagikan menggunakan:
-
-```dart
-ChangeNotifierProvider
-```
-
-Widget membaca state menggunakan:
-
-```dart
-context.watch<BelanjaModel>()
-```
-
-dan menjalankan aksi terhadap model menggunakan:
-
-```dart
-context.read<BelanjaModel>()
-```
-
----
-
-# 5. Struktur Data
-
-Setiap barang disimpan dalam objek `BarangBelanja`.
-
-Struktur data:
-
-```dart
-class BarangBelanja {
-  final String nama;
-  final int jumlah;
-  final String kategori;
-  bool sudahDibeli;
-}
-```
-
-Properti yang digunakan:
-
-| Properti | Tipe | Keterangan |
-|---|---|---|
-| `nama` | `String` | Nama barang |
-| `jumlah` | `int` | Jumlah barang |
-| `kategori` | `String` | Kategori barang |
-| `sudahDibeli` | `bool` | Status pembelian |
-
----
-
-# 6. State Management
-
-State aplikasi dikelola melalui class:
-
-```dart
-class BelanjaModel extends ChangeNotifier
-```
-
-Model memiliki beberapa operasi utama.
-
-## Menambahkan barang
-
-```dart
-void tambah({
-  required String nama,
-  required int jumlah,
-  required String kategori,
-})
-```
-
-Method ini menambahkan objek barang ke dalam daftar.
-
----
-
-## Mengubah status barang
-
-```dart
-void toggle(int index)
-```
-
-Method ini mengubah status:
-
-```text
-Belum dibeli
-      ↕
-Sudah dibeli
-```
-
-Setelah perubahan dilakukan, model memanggil:
-
-```dart
-notifyListeners();
-```
-
-agar widget yang menggunakan state dapat diperbarui.
-
----
-
-## Menghapus barang
-
-```dart
-void hapus(int index)
-```
-
-Method ini menghapus barang berdasarkan index.
-
----
-
-## Menghitung barang belum dibeli
-
-Aplikasi memiliki getter:
-
-```dart
-int get jumlahBelumDibeli
-```
-
-Getter tersebut menghitung jumlah barang yang masih belum ditandai sebagai sudah dibeli.
-
-Nilainya ditampilkan pada AppBar.
-
----
-
-# 7. Halaman Daftar Belanja
-
-Halaman daftar menggunakan:
-
-```dart
-ListView.builder
-```
-
-untuk menampilkan seluruh barang.
-
-Setiap barang menggunakan:
-
-```dart
-Card
-```
-
-dan:
-
-```dart
-ListTile
-```
-
-Komponen setiap item terdiri dari:
-
-- Checkbox
-- Nama barang
-- Jumlah
-- Kategori
-- Tombol hapus
-
----
-
-# 8. Checkbox Sudah Dibeli
-
-Checkbox digunakan untuk mengubah status barang.
-
-Ketika checkbox belum dicentang:
-
-```text
-Belum dibeli
-```
-
-Ketika checkbox dicentang:
-
-```text
-Sudah dibeli
-```
-
-Nama barang juga diberikan efek coret ketika sudah dibeli.
-
-Aksi dilakukan menggunakan:
-
-```dart
-context.read<BelanjaModel>().toggle(index);
-```
-
----
-
-# 9. Menghapus Barang
-
-Setiap item memiliki tombol hapus.
-
-Ketika tombol ditekan:
-
-```dart
-context.read<BelanjaModel>().hapus(index);
-```
-
-barang langsung dihapus dari daftar.
-
----
-
-# 10. Halaman Form Tambah Barang
-
-Halaman form menggunakan:
-
-```dart
-Form(
-  key: _formKey,
-)
-```
-
-Setiap field menggunakan validator.
-
-Input yang tersedia:
-
-```text
-Nama Barang
-Jumlah
-Kategori
-```
-
----
-
-# 11. Validasi Nama Barang
-
-Nama barang tidak boleh kosong.
-
-Validasi:
-
-```dart
-if (nama.isEmpty) {
-  return 'Nama barang wajib diisi';
-}
-```
-
-Jika pengguna tidak mengisi nama, aplikasi menampilkan pesan error.
-
----
-
-# 12. Validasi Jumlah
-
-Jumlah harus memenuhi tiga kondisi:
-
-1. Tidak boleh kosong.
-2. Harus berupa angka.
-3. Harus lebih dari 0.
-
-Validasi angka menggunakan:
-
-```dart
-final angka = int.tryParse(jumlah);
-```
-
-Jika bukan angka:
-
-```text
-Jumlah harus berupa angka
-```
-
-Jika nilainya 0 atau kurang:
-
-```text
-Jumlah harus lebih dari 0
-```
-
----
-
-# 13. Validasi Kategori
-
-Kategori menggunakan:
-
-```dart
-DropdownButtonFormField
-```
-
-Kategori harus dipilih sebelum data dapat disimpan.
-
-Jika belum memilih kategori:
-
-```text
-Pilih kategori
-```
-
----
-
-# 14. Alur Aplikasi
-
-Alur utama aplikasi:
-
-```text
-Halaman Daftar Belanja
-          │
-          │ tekan tombol +
-          ▼
-   Halaman Form Tambah
-          │
-          │ isi data
-          ▼
-        Validasi
-          │
-     ┌────┴────┐
-     │         │
-   gagal      valid
-     │         │
-     ▼         ▼
-   error      simpan
-               │
-               ▼
-      Halaman Daftar
-```
-
----
-
-# 15. Navigasi
-
-Dari halaman daftar ke halaman form digunakan:
-
-```dart
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (_) => const FormBelanjaPage(),
-  ),
-);
-```
-
-Setelah data berhasil disimpan, halaman form ditutup menggunakan:
-
-```dart
-Navigator.pop(context);
-```
-
----
-
-# 16. Empty State
-
-Jika belum ada barang yang ditambahkan, halaman daftar menampilkan:
-
-```text
-Belum ada barang
-```
-
-di tengah layar.
-
-Hal ini membantu pengguna mengetahui bahwa daftar masih kosong.
-
----
-
-# 17. Struktur Project
+| Nama Aplikasi | Daftar Belanja |
+| Framework | Flutter |
+| Bahasa Pemrograman | Dart |
+| State Management | Provider |
+| Package | provider |
+| Platform | Android |
+
+## Fitur Aplikasi
+
+- **Menampilkan Daftar Barang** — Menampilkan seluruh barang yang telah dimasukkan pengguna.
+- **Menambahkan Barang** — Pengguna dapat memasukkan nama barang, jumlah, dan kategori.
+- **Validasi Formulir** — Memastikan nama barang dan jumlah telah diisi dengan benar serta kategori telah dipilih.
+- **Checklist Barang** — Menandai barang yang sudah dibeli.
+- **Menghapus Barang** — Menghapus barang dari daftar belanja.
+- **Penghitung Barang** — Menampilkan jumlah barang yang belum dibeli pada AppBar.
+- **Pesan Daftar Kosong** — Menampilkan informasi ketika belum ada barang yang ditambahkan.
+
+## Teknologi yang Digunakan
+
+| Teknologi | Fungsi |
+|---|---|
+| Flutter | Framework pengembangan aplikasi mobile |
+| Dart | Bahasa pemrograman |
+| Material Design 3 | Komponen dan tampilan antarmuka |
+| Provider | Mengelola state aplikasi |
+| ChangeNotifier | Memberikan notifikasi ketika data berubah |
+| ListView.builder | Menampilkan daftar barang secara dinamis |
+| TextFormField | Menerima input nama dan jumlah barang |
+| DropdownButtonFormField | Memilih kategori barang |
+| Navigator | Berpindah antara halaman daftar dan formulir |
+
+## Struktur Project
 
 ```text
 daftar_belanja/
-├── README.md
+├── android/
 ├── images/
 │   ├── 1_daftarkosong.png
-│   ├── 2_semuаkosong.png
+│   ├── 2_semuakosong.png
 │   ├── 3_jumlah0.png
 │   ├── 4_jumlahpakehuruf.png
 │   ├── 5_kategorikosong.png
-│   └── 6_daftarbelanja.png
+│   ├── 6_daftarbelanja.png
+│   └── 7_ceklisbarang.png
+├── ios/
 ├── lib/
 │   └── main.dart
-├── android/
-├── ios/
-├── web/
-├── test/
-├── windows/
 ├── macos/
-├── linux/
+├── test/
+├── web/
+├── windows/
 ├── pubspec.yaml
-└── ...
+├── pubspec.lock
+└── README.md
 ```
 
----
+## Konsep Implementasi
 
-# 18. Screenshot Hasil Pengujian
+### 1. Class BarangBelanja
 
-## 18.1 Daftar Belanja Kosong
+Class `BarangBelanja` digunakan sebagai model untuk merepresentasikan data barang yang terdiri dari nama, jumlah, kategori, dan status pembelian.
 
-Screenshot menunjukkan kondisi ketika belum terdapat barang pada daftar.
+### 2. State Management dengan Provider
 
-![Daftar Belanja Kosong](images/1_daftarkosong.png)
+Aplikasi menggunakan `BelanjaModel` yang merupakan turunan dari `ChangeNotifier`. Class ini bertanggung jawab mengelola daftar barang melalui beberapa method:
 
----
+- `tambah()` — Menambahkan barang baru.
+- `toggle()` — Mengubah status pembelian barang.
+- `hapus()` — Menghapus barang dari daftar.
+- `jumlahBelumDibeli` — Menghitung barang yang belum dibeli.
 
-## 18.2 Form dengan Input Kosong
+Method `notifyListeners()` digunakan untuk memberi tahu widget ketika terjadi perubahan data sehingga tampilan dapat diperbarui.
 
-Screenshot menunjukkan kondisi ketika form belum diisi dan validasi dilakukan.
+### 3. Form Input dan Validasi
 
-![Semua Input Kosong](images/2_semuakosong.png)
+Halaman `FormBelanjaPage` menggunakan `Form`, `TextFormField`, dan `DropdownButtonFormField` untuk menerima input pengguna.
 
----
+Validasi yang diterapkan meliputi:
+- Nama barang wajib diisi.
+- Jumlah wajib diisi.
+- Jumlah harus berupa angka.
+- Jumlah harus lebih dari nol.
+- Kategori wajib dipilih.
 
-## 18.3 Validasi Jumlah Nol
+### 4. Menampilkan Data
 
-Screenshot menunjukkan validasi ketika jumlah barang diisi dengan angka `0`.
+`ListView.builder` digunakan untuk menampilkan daftar barang secara dinamis. Setiap barang ditampilkan menggunakan `Card` dan `ListTile`.
 
-Pesan yang diharapkan:
+Checkbox digunakan untuk mengubah status pembelian, sedangkan `IconButton` digunakan untuk menghapus barang.
 
-```text
-Jumlah harus lebih dari 0
-```
+## Dokumentasi Tampilan
 
-![Validasi Jumlah Nol](images/3_jumlah0.png)
+### 1. Kondisi Daftar Kosong
 
----
+![Daftar kosong](images/1_daftarkosong.png)
 
-## 18.4 Validasi Jumlah Bukan Angka
+### 2. Kondisi Seluruh Barang Kosong
 
-Screenshot menunjukkan validasi ketika jumlah diisi menggunakan karakter selain angka.
+![Seluruh barang kosong](images/2_semuakosong.png)
 
-Pesan yang diharapkan:
+### 3. Validasi Jumlah Kosong
 
-```text
-Jumlah harus berupa angka
-```
+![Validasi jumlah kosong](images/3_jumlah0.png)
 
-![Validasi Jumlah dengan Huruf](images/4_jumlahpakehuruf.png)
+### 4. Validasi Jumlah Bukan Angka
 
----
+![Validasi jumlah berupa huruf](images/4_jumlahpakehuruf.png)
 
-## 18.5 Validasi Kategori
+### 5. Validasi Kategori
 
-Screenshot menunjukkan kondisi ketika kategori belum dipilih.
+![Validasi kategori kosong](images/5_kategorikosong.png)
 
-Pesan yang diharapkan:
+### 6. Daftar Barang Belanja
 
-```text
-Pilih kategori
-```
+![Daftar barang belanja](images/6_daftarbelanja.png)
 
-![Validasi Kategori](images/5_kategorikosong.png)
+### 7. Checklist Barang
 
----
+![Checklist barang](images/7_ceklisbarang.png)
 
-## 18.6 Daftar Belanja Setelah Data Ditambahkan
+## Cara Menjalankan Aplikasi
 
-Screenshot menunjukkan halaman daftar setelah barang berhasil ditambahkan.
+Pastikan Flutter SDK dan Dart SDK sudah terpasang.
 
-Halaman menampilkan:
-
-- Nama barang.
-- Jumlah.
-- Kategori.
-- Checkbox.
-- Tombol hapus.
-- Jumlah barang belum dibeli pada AppBar.
-
-![Daftar Belanja](images/6_daftarbelanja.png)
-
----
-
-## 18.7 Daftar Belanja yang diceklis
-
-Screenshot menunjukkan status barang ketika diceklis, dan jumlah daftar belanja berkurang.
-
-***Note***: Jumlah pada halaman ini diinputkan 2, berbeda dengan jumlah pada poin 18.6 yang jumlahnya 1
-
-Halaman menampilkan:
-
-- Nama barang tercoret.
-- Jumlah.
-- Kategori.
-- Checkbox.
-- Tombol hapus.
-- Jumlah barang berkurang pada AppBar.
-
-![Ceklis Barang](images/7_ceklisbarang.png)
-
----
-
-# 19. Cara Menjalankan Project
-
-Pastikan berada pada folder project:
+1. Clone repository:
 
 ```bash
-cd daftar_belanja
+git clone https://github.com/illhammf/pemrograman-mobile.git
 ```
 
-Install dependency:
+2. Masuk ke direktori project:
+
+```bash
+cd pemrograman-mobile/pertemuan-3/tugas/daftar_belanja
+```
+
+3. Unduh dependencies:
 
 ```bash
 flutter pub get
 ```
 
-Jalankan aplikasi:
+4. Jalankan aplikasi:
 
 ```bash
 flutter run
 ```
 
-Untuk memeriksa kondisi Flutter:
+## Dependencies
 
-```bash
-flutter doctor
+Dependencies utama yang digunakan:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5+1
 ```
+
+## Pengujian
+
+| No. | Skenario Pengujian | Hasil |
+|---|---|---|
+| 1 | Membuka aplikasi tanpa data barang | Berhasil |
+| 2 | Menambahkan barang baru | Berhasil |
+| 3 | Mengisi nama barang | Berhasil |
+| 4 | Mengisi jumlah barang dengan angka | Berhasil |
+| 5 | Memasukkan jumlah berupa huruf | Ditolak oleh validasi |
+| 6 | Membiarkan nama barang kosong | Ditolak oleh validasi |
+| 7 | Tidak memilih kategori | Ditolak oleh validasi |
+| 8 | Menandai barang sudah dibeli | Berhasil |
+| 9 | Menghapus barang | Berhasil |
+| 10 | Memperbarui jumlah barang yang belum dibeli | Berhasil |
+
+## Identitas Pengembang
+
+| Keterangan | Identitas |
+|---|---|
+| Nama | Ilham Firmansyah |
+| NIM | 20240801102 |
+| Mata Kuliah | TI505 Pemrograman Mobile |
+| Project | Daftar Belanja |
 
 ---
 
-# 20. Dependency
-
-Project menggunakan package:
-
-```text
-provider
-```
-
-Provider digunakan untuk mengimplementasikan state management menggunakan `ChangeNotifier`.
-
-Package dapat ditambahkan dengan:
-
-```bash
-flutter pub add provider
-```
-
----
-
-# 21. Hasil Implementasi
-
-Aplikasi telah menerapkan:
-
-- Form input.
-- Validasi nama.
-- Validasi jumlah.
-- Validasi jumlah harus lebih dari 0.
-- Validasi jumlah harus berupa angka.
-- Dropdown kategori.
-- Validasi kategori.
-- `ChangeNotifier`.
-- Provider.
-- `context.watch`.
-- `context.read`.
-- `notifyListeners`.
-- `ListView.builder`.
-- Checkbox status pembelian.
-- Penghapusan barang.
-- Navigasi antar halaman.
-- Empty state.
-- Jumlah barang belum dibeli pada AppBar.
-
----
-
-# 22. Pengumpulan
-
-Sesuai ketentuan modul, pengumpulan tugas terdiri dari:
-
-1. Screenshot halaman Form Tambah.
-2. Screenshot halaman Daftar Belanja.
-3. Screenshot tampilan pesan error validasi.
-4. Berkas `main.dart` atau tautan repository GitHub.
-
-Screenshot pengujian disimpan pada:
-
-```text
-images/
-```
-
-Sedangkan source code utama terdapat pada:
-
-```text
-lib/main.dart
-```
-
----
-
-# 23. Checklist Tugas
-
-## Form Tambah
-
-- [x] Nama barang wajib diisi.
-- [x] Jumlah wajib diisi.
-- [x] Jumlah harus berupa angka.
-- [x] Jumlah harus lebih dari 0.
-- [x] Kategori menggunakan dropdown.
-- [x] Kategori wajib dipilih.
-- [x] Validasi setiap input.
-
-## Halaman Daftar
-
-- [x] Menampilkan semua barang.
-- [x] Barang dapat dicentang sebagai sudah dibeli.
-- [x] Barang dapat dihapus.
-- [x] AppBar menampilkan jumlah barang belum dibeli.
-- [x] Menampilkan pesan ketika daftar kosong.
-
-## State Management
-
-- [x] Menggunakan `ChangeNotifier`.
-- [x] Menggunakan `ChangeNotifierProvider`.
-- [x] Menggunakan `context.watch`.
-- [x] Menggunakan `context.read`.
-- [x] Menggunakan `notifyListeners`.
-
-## Dokumentasi
-
-- [x] README tugas dibuat.
-- [x] Source code `main.dart` tersedia.
-- [x] Screenshot daftar kosong.
-- [x] Screenshot form kosong.
-- [x] Screenshot validasi jumlah 0.
-- [x] Screenshot validasi jumlah bukan angka.
-- [x] Screenshot validasi kategori.
-- [x] Screenshot daftar belanja.
-- [x] Screenshot ceklis barang.
-
----
-
-# 24. Kesimpulan
-
-Aplikasi Daftar Belanja berhasil dibuat dengan menerapkan konsep form input, validasi, state management, dan Provider.
-
-Pengguna dapat menambahkan barang melalui form, memilih jumlah dan kategori, kemudian melihat seluruh barang pada halaman daftar. Barang dapat ditandai sebagai sudah dibeli maupun dihapus.
-
-State aplikasi dikelola secara terpusat menggunakan `ChangeNotifier` dan dibagikan dengan Provider sehingga perubahan data dapat langsung tercermin pada halaman yang menggunakan data tersebut.
+**Catatan:** Aplikasi ini menggunakan Provider sebagai state management dan menyimpan data selama aplikasi berjalan. Penyimpanan permanen ke database belum diterapkan pada project ini.
