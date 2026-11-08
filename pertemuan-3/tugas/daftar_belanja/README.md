@@ -2,7 +2,7 @@
 
 Aplikasi mobile sederhana berbasis Flutter untuk mengelola daftar kebutuhan belanja. Aplikasi ini memungkinkan pengguna menambahkan barang, menentukan jumlah dan kategori, menandai barang yang sudah dibeli, serta menghapus barang dari daftar.
 
-Project ini dibuat sebagai bagian dari praktikum dan tugas mata kuliah **TI505 Pemrograman Mobile**.
+Project ini dibuat sebagai bagian dari praktikum dan tugas mata kuliah **CIE511 Pemrograman Mobile**.
 
 ## Informasi Project
 
