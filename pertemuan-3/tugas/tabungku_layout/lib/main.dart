@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -211,11 +210,7 @@ class RingkasanPage extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _informasiSaldo(
-                  'Terkumpul',
-                  '50%',
-                  Icons.trending_up,
-                ),
+                child: _informasiSaldo('Terkumpul', '50%', Icons.trending_up),
               ),
             ],
           ),
@@ -248,10 +243,7 @@ class RingkasanPage extends StatelessWidget {
             Flexible(
               child: Text(
                 judul,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ),
           ],
@@ -313,9 +305,8 @@ class RingkasanPage extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Menu $judul dipilih')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Menu $judul dipilih')));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 4),
@@ -384,12 +375,8 @@ class RingkasanPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
-                    item.pemasukan
-                        ? Icons.arrow_downward
-                        : Icons.arrow_upward,
-                    color: item.pemasukan
-                        ? Colors.teal
-                        : Colors.redAccent,
+                    item.pemasukan ? Icons.arrow_downward : Icons.arrow_upward,
+                    color: item.pemasukan ? Colors.teal : Colors.redAccent,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -427,9 +414,7 @@ class RingkasanPage extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
-                      color: item.pemasukan
-                          ? Colors.teal
-                          : Colors.redAccent,
+                      color: item.pemasukan ? Colors.teal : Colors.redAccent,
                     ),
                   ),
                 ),
