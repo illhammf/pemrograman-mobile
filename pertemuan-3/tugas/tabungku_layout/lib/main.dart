@@ -167,20 +167,31 @@ class RingkasanPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+
+          Row(
             children: [
-              Icon(Icons.savings_outlined, color: Colors.white, size: 28),
-              SizedBox(width: 10),
-              Text(
-                'Tabungan Masa Depan',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
+              const Icon(
+                Icons.savings_outlined,
+                color: Colors.white,
+                size: 28,
+              ),
+              const SizedBox(width: 10),
+
+              // Expanded memberikan sisa ruang kepada teks.
+              Expanded(
+                child: Text(
+                  'Tabungan Masa Depan',
+                  softWrap: true,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
+
           const SizedBox(height: 24),
 
           const Text(
