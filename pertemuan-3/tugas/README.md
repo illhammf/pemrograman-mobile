@@ -93,7 +93,7 @@ tugas/
 | Nama | Ilham Firmansyah |
 | NIM | 20240801102 |
 | Jurusan | Teknik Informatika |
-| Mata Kuliah | TI505 – Pemrograman Mobile |
+| Mata Kuliah | CIE511 – Pemrograman Mobile |
 | Pertemuan | 3 |
 
 ## Ringkasan Materi yang Diterapkan
