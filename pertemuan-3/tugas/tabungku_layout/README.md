@@ -1,6 +1,6 @@
 # TabungKu Layout – Ringkasan Tabungan
 
-Aplikasi Flutter sederhana yang menampilkan halaman **Ringkasan Tabungan** menggunakan widget dasar Flutter. Proyek ini dibuat untuk memenuhi tugas Pertemuan 3 mata kuliah Pemrograman Mobile, dengan fokus pada penyusunan tata letak (layout) yang rapi dan responsif terhadap orientasi layar.
+Aplikasi Flutter sederhana yang menampilkan halaman **Ringkasan Tabungan** menggunakan widget dasar Flutter. Proyek ini dibuat untuk memenuhi Tugas Minggu 3 pada Pertemuan 3 mata kuliah Pemrograman Mobile, dengan fokus pada penyusunan tata letak (layout) yang rapi dan responsif terhadap ukuran layar.
 
 ## Identitas
 
@@ -15,9 +15,9 @@ Aplikasi Flutter sederhana yang menampilkan halaman **Ringkasan Tabungan** mengg
 
 ## Deskripsi Aplikasi
 
-TabungKu Layout merupakan rancangan antarmuka aplikasi tabungan yang menampilkan informasi saldo, target tabungan, dan riwayat transaksi dalam satu halaman.
+TabungKu Layout merupakan rancangan antarmuka aplikasi tabungan yang menampilkan informasi saldo, target tabungan, menu cepat, dan riwayat transaksi dalam satu halaman.
 
-Aplikasi ini menggunakan data transaksi statis (*hard-coded*) sesuai ketentuan tugas. Pengembangan difokuskan pada penerapan widget dasar Flutter untuk menghasilkan tampilan yang terstruktur, mudah dibaca, dan menyesuaikan orientasi layar.
+Aplikasi menggunakan data transaksi statis (*hard-coded*) sesuai ketentuan tugas. Pengembangan difokuskan pada penerapan widget dasar Flutter untuk menghasilkan tampilan yang terstruktur, mudah dibaca, dan menyesuaikan ukuran layar.
 
 ## Fitur dan Komponen Tampilan
 
@@ -37,7 +37,7 @@ Aplikasi ini menggunakan data transaksi statis (*hard-coded*) sesuai ketentuan t
 4. **Riwayat Transaksi**
    - Menampilkan daftar transaksi.
    - Setiap transaksi memiliki judul, tanggal, dan nominal.
-   - Menggunakan tampilan Card agar setiap transaksi terlihat terpisah dan rapi.
+   - Menggunakan Card agar setiap transaksi terlihat terpisah dan rapi.
 
 ## Widget Dasar Flutter yang Digunakan
 
@@ -52,7 +52,7 @@ Aplikasi ini menggunakan data transaksi statis (*hard-coded*) sesuai ketentuan t
 | `SizedBox` | Mengatur jarak antarwidget. |
 | `Column` | Menyusun elemen secara vertikal. |
 | `Row` | Menyusun elemen secara horizontal. |
-| `Expanded` | Membagi ruang yang tersedia agar teks menyesuaikan lebar layar. |
+| `Expanded` | Membagi ruang yang tersedia agar konten menyesuaikan lebar layar. |
 | `Text` | Menampilkan informasi dan keterangan. |
 | `Icon` | Menampilkan ikon visual. |
 | `ListView` | Menyusun daftar transaksi. |
@@ -97,19 +97,19 @@ Struktur tersebut menggambarkan pembagian area utama halaman menjadi kartu ringk
 
 ## Dokumentasi Tampilan
 
-Berikut merupakan hasil tampilan aplikasi TabungKu Layout pada dua orientasi layar.
+Berikut merupakan hasil tampilan aplikasi TabungKu Layout pada dua ukuran layar berbeda.
 
-### 1. Tampilan Portrait
+### 1. Tampilan Portrait pada Ponsel
 
-Tampilan portrait memperlihatkan halaman Ringkasan Tabungan dalam orientasi layar tegak.
+Tampilan aplikasi pada perangkat ponsel dengan orientasi portrait. Kartu ringkasan, menu cepat, dan riwayat transaksi ditampilkan dalam satu halaman.
 
-![Tampilan TabungKu Portrait](docs/layar_portrait.png)
+![Tampilan TabungKu pada Ponsel Portrait](docs/layar_ponsel_portrait.png)
 
-### 2. Tampilan Landscape
+### 2. Tampilan Ukuran Tablet
 
-Tampilan landscape memperlihatkan penyesuaian tata letak ketika perangkat berada dalam orientasi mendatar. Kartu ringkasan dan riwayat transaksi disusun berdampingan.
+Tampilan aplikasi pada area layar berukuran tablet. Pengujian dilakukan dengan simulasi resolusi layar menggunakan perangkat Android yang terhubung melalui ADB.
 
-![Tampilan TabungKu Landscape](docs/layar_landscape.png)
+![Tampilan TabungKu pada Ukuran Tablet](docs/layar_tablet.png)
 
 ## Teknologi yang Digunakan
 
@@ -171,8 +171,8 @@ Pengujian dilakukan untuk memastikan aplikasi dapat dijalankan dan komponen utam
 | 3 | Menampilkan kartu ringkasan tabungan | Lulus |
 | 4 | Menampilkan tiga ikon menu cepat | Lulus |
 | 5 | Menampilkan daftar minimal tiga transaksi | Lulus |
-| 6 | Menyesuaikan layout portrait | Lulus |
-| 7 | Menyesuaikan layout landscape | Lulus |
+| 6 | Menampilkan layout pada ukuran layar ponsel | Lulus |
+| 7 | Menampilkan layout pada simulasi ukuran tablet | Lulus |
 | 8 | Pemeriksaan kode menggunakan `flutter analyze` | Lulus |
 | 9 | Pengujian widget menggunakan `flutter test` | Lulus |
 
@@ -193,7 +193,7 @@ No issues found!
 
 Berdasarkan hasil pengerjaan, aplikasi TabungKu Layout berhasil dibuat menggunakan widget dasar Flutter. Halaman utama menampilkan kartu ringkasan tabungan, menu cepat, dan riwayat transaksi dengan susunan yang terstruktur.
 
-Penggunaan `Row`, `Column`, `Container`, `Card`, `Padding`, `SizedBox`, dan `Expanded` membantu membentuk tata letak yang rapi serta menyesuaikan orientasi layar portrait dan landscape.
+Penggunaan `Row`, `Column`, `Container`, `Card`, `Padding`, `SizedBox`, dan `Expanded` membantu membentuk tata letak yang rapi serta menyesuaikan tampilan pada ukuran layar ponsel dan simulasi ukuran tablet.
 
 Aplikasi juga berhasil melewati pemeriksaan kode menggunakan `flutter analyze` dan pengujian widget menggunakan `flutter test`.
 
