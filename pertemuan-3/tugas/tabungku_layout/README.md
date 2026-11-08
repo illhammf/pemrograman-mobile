@@ -8,7 +8,7 @@ Aplikasi Flutter sederhana yang menampilkan halaman **Ringkasan Tabungan** mengg
 |---|---|
 | Nama | Ilham Firmansyah |
 | NIM | 20240801102 |
-| Mata Kuliah | TI505 – Pemrograman Mobile |
+| Mata Kuliah | CIE511 – Pemrograman Mobile |
 | Pertemuan | 3 |
 | Nama Tugas | Menyusun Layout dengan Widget Dasar Flutter |
 | Nama Proyek | TabungKu Layout |
